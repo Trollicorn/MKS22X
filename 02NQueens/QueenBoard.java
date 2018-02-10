@@ -59,7 +59,16 @@ public class QueenBoard{
 	}
 
 	public boolean solve(){
-		return true;
+		return solveHelp();
+	}
+
+	private boolean solveHelp(int prevRow, int prevCol, int r, int c, int placed){
+		if (c == board.length){
+			if (placed != board.length){
+				removeQueen(prevRow,prevCol);
+			}
+		}
+		return 
 	}
 
 	public int countSolutions(){
@@ -68,8 +77,8 @@ public class QueenBoard{
 
 	public static void main(String[] args){
 		QueenBoard board = new QueenBoard(8);
-		board.addQueen(1,1);
-		board.removeQueen(1,1);
+	//	board.addQueen(1,1);
+	//	board.removeQueen(1,1);
 		System.out.println(board);
 	}
 
