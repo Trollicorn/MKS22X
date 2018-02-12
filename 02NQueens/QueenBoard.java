@@ -7,6 +7,9 @@ public class QueenBoard{
 	}
 
 	private boolean addQueen(int r, int c){
+		if (board[r][c] != 0){
+			return false;
+		}
 		board[r][c] = -1;
 		int increment = 1; 
 		for (int i = c+1; i < board.length; i++){
@@ -23,6 +26,9 @@ public class QueenBoard{
 	}
 
 	private boolean removeQueen(int r, int c){
+		if (board[r][c] != -1){
+			return false;
+		}
 		board[r][c] = 0;
 		int increment = 1; 
 		for (int i = c+1; i < board.length; i++){
@@ -59,16 +65,24 @@ public class QueenBoard{
 	}
 
 	public boolean solve(){
-		return solveHelp();
+		return solveHelp(0, 0, 0);
 	}
 
-	private boolean solveHelp(int prevRow, int prevCol, int r, int c, int placed){
+	private boolean solveHelp(int r, int c, int placed){
 		if (c == board.length){
-			if (placed != board.length){
-				removeQueen(prevRow,prevCol);
-			}
+			return placed == board.length;
 		}
-		return 
+		if (r == board.length){
+			if (placed == c+1){
+				c += 1;
+				r = 0; 
+			}
+			else{
+				return false;
+			}
+		} 
+		return addQueen(r,c) && (solveHelp(0,c+1,placed+1) || removeQueen(r,c)) || 
+		       solveHelp(r+1,c,placed);
 	}
 
 	public int countSolutions(){
@@ -76,9 +90,10 @@ public class QueenBoard{
 	}
 
 	public static void main(String[] args){
-		QueenBoard board = new QueenBoard(8);
+		QueenBoard board = new QueenBoard(4);
 	//	board.addQueen(1,1);
 	//	board.removeQueen(1,1);
+		System.out.println(board.solve());
 		System.out.println(board);
 	}
 
