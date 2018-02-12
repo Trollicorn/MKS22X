@@ -4,6 +4,11 @@ public class QueenBoard{
 
 	public QueenBoard(int size){
 		board = new int[size][size];
+		for (int i = 0; i < board.length; i++){
+			for (int j = 0; j < board.length; j++){
+				board[i][j] = 0;
+			}
+		}
 	}
 
 	private boolean addQueen(int r, int c){
@@ -41,7 +46,6 @@ public class QueenBoard{
 			}
 			increment += 1;
 		}
-
 		return true;
 	}
 
@@ -52,11 +56,8 @@ public class QueenBoard{
 				if (board[r][c] == -1){
 					str += "Q ";
 				}
-				else if (board[r][c] == 0){
+				else {
 					str += "_ ";
-				}
-				else{
-					str += "X ";
 				}
 			}
 			str += "\n";
@@ -65,35 +66,67 @@ public class QueenBoard{
 	}
 
 	public boolean solve(){
-		return solveHelp(0, 0, 0);
+		if (isBad()){
+			throw new IllegalStateException();
+		}
+		return solveHelp(0);
 	}
 
-	private boolean solveHelp(int r, int c, int placed){
+	private boolean solveHelp(int c){
 		if (c == board.length){
-			return placed == board.length;
+			return true;
 		}
-		if (r == board.length){
-			if (placed == c+1){
-				c += 1;
-				r = 0; 
+		for (int r = 0; r < board.length; r++){
+			if (addQueen(r,c)){
+				if (solveHelp(c+1)){
+					return true;
+				}
+				removeQueen(r,c);
 			}
-			else{
-				return false;
-			}
-		} 
-		return addQueen(r,c) && (solveHelp(0,c+1,placed+1) || removeQueen(r,c)) || 
-		       solveHelp(r+1,c,placed);
+		}
+		return false;
 	}
 
 	public int countSolutions(){
-		return 1;
+		if (isBad()){
+			throw new IllegalStateException();
+		}
+		return countHelp(0);
 	}
 
+	private int countHelp(int c){
+		if (c == board.length){
+			return 1;
+		}
+		for (int r = 0; r < board.length; r++){
+			if (addQueen(r,c)){
+				if (countHelp(c+1) == 1){
+					return 1;
+				}
+				removeQueen(r,c);
+			}
+		}
+		return 0;
+	}
+
+	private boolean isBad(){
+		for (int i = 0; i < board.length; i++){
+			for (int j = 0; j < board.length; j++){
+				if (board[i][j] != 0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
 	public static void main(String[] args){
-		QueenBoard board = new QueenBoard(4);
-	//	board.addQueen(1,1);
+		QueenBoard board = new QueenBoard(8);
+	//	board.addQueen(4,4);
 	//	board.removeQueen(1,1);
-		System.out.println(board.solve());
+	//	System.out.println(board.solve());
+		System.out.println(board.countSolutions());
 		System.out.println(board);
 	}
 
