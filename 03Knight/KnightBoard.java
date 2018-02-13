@@ -41,14 +41,15 @@ public class KnightBoard{
 		}
 		board[row][col] = level;
 		for (int mode = 0; mode < 8; mode++){
-			if (moveKnight(row,col,level,mode)){
-				return solveHelp(row,col,level+1);				
-			}
+			return moveKnight(row,col,level+1,mode);
 		}
-
+		return false;
 	}
 
 	private boolean moveKnight(int row, int col, int level, int mode){
+		if (level == board.length * board[0].length){
+			return true;
+		}
 		int rowInc = 0;
 		int colInc = 0;          // _ 7 _ 0 _        
 		if (mode == 0){          // 6 _ _ _ 1   
@@ -89,24 +90,40 @@ public class KnightBoard{
 			moveCol >= board[0].length || moveCol < 0 ||
 			board[moveRow][moveCol] != 0){
 			return false;
-	}
-	board[row][col] = level;
-	return true;
-}
-
-public int countSolutions(){
-	return 1;
-}
-
-private boolean isBad(){
-	for (int r = 0; r < board.length; r++){
-		for (int c = 0; c < board.length; c++){
-			if (board[r][c] != 0){
+		}
+		for (int m = 0; m < 8; m++){
+			board[moveRow][moveCol] = level;
+			if (moveKnight(moveRow,moveCol,level+1,m)){
 				return true;
+			}else{
+				board[moveRow][moveCol] = 0;
+				return false;
 			}
 		}
+		return true;
 	}
-	return false;
-}
+
+	public int countSolutions(){
+		return 1;
+	}
+
+	private boolean isBad(){
+		for (int r = 0; r < board.length; r++){
+			for (int c = 0; c < board.length; c++){
+				if (board[r][c] != 0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public static void main(String[] args){
+		KnightBoard b = new KnightBoard(7, 7);
+		System.out.println(b);
+		System.out.println(b.solve(4,4));
+		System.out.println(b);
+	}
+
 
 }
