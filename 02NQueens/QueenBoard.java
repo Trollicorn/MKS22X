@@ -1,6 +1,7 @@
 public class QueenBoard{
 
 	private int[][] board;
+	private int sum;
 
 	public QueenBoard(int size){
 		board = new int[size][size];
@@ -91,23 +92,24 @@ public class QueenBoard{
 		if (isBad()){
 			throw new IllegalStateException();
 		}
-		return countHelp(0);
+		sum = 0;
+		countHelp(0);
+		return sum;
 	}
 
-	private int countHelp(int c){
+	private void countHelp(int c){
 		if (c == board.length){
-			return 1;
+			sum += 1;
+			return;
 		}
 		for (int r = 0; r < board.length; r++){
 			if (addQueen(r,c)){
-				if (countHelp(c+1) == 1){
-					return 1;
-				}
+				countHelp(c+1);
 				removeQueen(r,c);
 			}
 		}
-		return 0;
 	}
+
 
 	private boolean isBad(){
 		for (int i = 0; i < board.length; i++){
@@ -121,15 +123,53 @@ public class QueenBoard{
 	}
 
 
-	public static void main(String[] args){
+/*	public static void main(String[] args){
 		QueenBoard board = new QueenBoard(8);
 	//	board.addQueen(4,4);
 	//	board.removeQueen(1,1);
-	//	System.out.println(board.solve());
 		System.out.println(board.countSolutions());
+		System.out.println(board.solve());
 		System.out.println(board);
 	}
+*/
 
+
+	// THE FOLLOWING MAIN METHOD WAS CONTRIBUTED BY A FELLOW STUDENT
+
+	public static void main(String[] args){
+		QueenBoard b = new QueenBoard(4);
+
+ 	    System.out.println(b.solve()); //prints true
+		System.out.println(b); //prints a valid solution
+
+		try{
+			b.solve();
+		}catch(IllegalStateException e){
+			System.out.println("Error: The board contains non-zero values");
+    	} //prints "Error: The board contains non-zero values"
+
+    	try{
+    		b.countSolutions();
+    	}catch(IllegalStateException e){
+    		System.out.println("Error: The board contains non-zero values");
+	    } //prints "Error: The board contains non-zero values"
+
+	    for (int i = 0; i < 12; i++){
+	    	QueenBoard a = new QueenBoard(i);
+	    	System.out.println("# of Solutions for " + i + ": " + a.countSolutions());
+
+	      /*          Expected Values
+	       i --> # of Solutions   i --> # of Solutions
+	      0 --> 1                      6 --> 4
+	      1 --> 1                      7 --> 40
+	      2 --> 0                      8 --> 92
+	      3 --> 0                      9 --> 352
+	      4 --> 2                    10 --> 724
+	      5 --> 10                  11 --> 2680
+	      */
+	      System.out.println(a); //prints out an empty i by i grid of underscores
+	    }
+	}
 
 }
 
