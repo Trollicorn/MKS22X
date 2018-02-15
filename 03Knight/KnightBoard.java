@@ -41,15 +41,17 @@ public class KnightBoard{
 		}
 		board[row][col] = level;
 		for (int mode = 0; mode < 8; mode++){
-			return moveKnight(row,col,level+1,mode);
+			int[] gather = moveKnight(row,col,level,mode);
+			if (gather[0]==1){
+				return solveHelp(gather[1],gather[2],level+1);
+			}
+			removeKnight(row,col,level,mode);	
 		}
 		return false;
 	}
 
-	private boolean moveKnight(int row, int col, int level, int mode){
-		if (level == board.length * board[0].length){
-			return true;
-		}
+	private int[] moveKnight(int row, int col, int level, int mode){
+		int[] gather = new int[3];
 		int rowInc = 0;
 		int colInc = 0;          // _ 7 _ 0 _        
 		if (mode == 0){          // 6 _ _ _ 1   
@@ -90,8 +92,19 @@ public class KnightBoard{
 		if (moveRow >= board.length    || moveRow < 0 ||
 			moveCol >= board[0].length || moveCol < 0 ||
 			board[moveRow][moveCol] != 0){
-			return false;
+			gather[0] = 0;
+			return gather;
 		}
+		if(board[moveRow][moveCol] == 0){
+			board[moveRow][moveCol] = level;
+			gather[0]=1;
+			gather[1]= moveRow;
+			gather[2]= moveCol;
+			return gather;
+		}
+		gather[0] = 0;
+		return gather;
+
 	/*	//for (int m = 0; m < 8; m++){
 			board[moveRow][moveCol] = level;
 			if (moveKnight(moveRow,moveCol,level+1,0)){
@@ -107,13 +120,10 @@ public class KnightBoard{
 			//return false;
 	//	}
 	//	return true;
-			*/
-	}
+			*/		
+	} 
 
 	private boolean removeKnight(int row, int col, int level, int mode){
-		if (level == board.length * board[0].length){
-			return true;
-		}
 		int rowInc = 0;
 		int colInc = 0;          // _ 7 _ 0 _        
 		if (mode == 4){          // 6 _ _ _ 1   
@@ -156,6 +166,12 @@ public class KnightBoard{
 			board[moveRow][moveCol] != 0){
 			return false;
 		}
+		if (board[moveRow][moveCol]==level){
+			board[moveRow][moveCol] = 0;
+			return true;
+		}
+		return false;
+	}
 
 	public int countSolutions(){
 		return 1;
@@ -173,9 +189,9 @@ public class KnightBoard{
 	}
 
 	public static void main(String[] args){
-		KnightBoard b = new KnightBoard(7, 7);
+		KnightBoard b = new KnightBoard(8, 8);
 		System.out.println(b);
-		System.out.println(b.solve(4,4));
+		System.out.println(b.solve(0,0));
 		System.out.println(b);
 	}
 
