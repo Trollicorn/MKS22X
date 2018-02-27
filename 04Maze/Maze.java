@@ -19,6 +19,12 @@ public class Maze{
     */
     public Maze(String filename){
         //COMPLETE CONSTRUCTOR
+        File file = new File(filename);
+        Scanner scan = new Scanner(file);
+        int rows = 0;
+        int cols = 0;
+        while ()
+        animate = false;
     }
     
     private void wait(int millis){
@@ -50,6 +56,7 @@ public class Maze{
 
             //and start solving at the location of the s.
             //return solve(???,???);
+      return -1;
     }
 
     /*
