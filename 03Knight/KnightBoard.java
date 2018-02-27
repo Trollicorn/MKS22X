@@ -43,9 +43,13 @@ public class KnightBoard{
 		for (int mode = 0; mode < 8; mode++){
 			int[] gather = moveKnight(row,col,level,mode);
 			if (gather[0]==1){
-				return solveHelp(gather[1],gather[2],level+1);
+				boolean ok = solveHelp(gather[1],gather[2],level+1);
+				if (ok){
+					return ok;
+				}
+				removeKnight(row,col,level,mode);
 			}
-			removeKnight(row,col,level,mode);	
+	//		removeKnight(row,col,level,mode);	
 		}
 		return false;
 	}
@@ -163,10 +167,10 @@ public class KnightBoard{
 		boolean give = false;
 		if (moveRow >= board.length    || moveRow < 0 ||
 			moveCol >= board[0].length || moveCol < 0 ||
-			board[moveRow][moveCol] != 0){
+			board[moveRow][moveCol] != level-1){
 			return false;
 		}
-		if (board[moveRow][moveCol]==level){
+		if (board[moveRow][moveCol]==level-1){
 			board[moveRow][moveCol] = 0;
 			return true;
 		}
