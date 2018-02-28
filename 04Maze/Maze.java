@@ -16,14 +16,10 @@ public class Maze{
 
     3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: print a meaningful error and exit the program.
     */
-    public Maze(String filename){
+    public Maze(String filename) throws FileNotFoundException{
       //COMPLETE CONSTRUCTOR
-        try{
-            setMaze(filename);
-        }
-        catch (FileNotFoundException e){
-            throw new IllegalStateException();
-        }
+        setMaze(filename);
+        animate = false;
     }
 
     private void setMaze(String filename) throws FileNotFoundException{
@@ -39,18 +35,25 @@ public class Maze{
             }
             rows += 1;
         }
-        boolean isGood;
+        int start = 0;
+        int end = 0;
         maze = new char[rows][cols];
         Scanner data = new Scanner(file);
         for(int r = 0; r < rows; r++){
-            String line = scan.nextLine();
+            String line = data.nextLine();
             for (int c = 0; c < cols; c++){
                 maze[r][c] = line.charAt(c);
+                if (maze[r][c] == 'S'){
+                    start += 1;
+                }
+                if (maze[r][c] == 'E'){
+                    end += 1;
+                }
             }
         }
-        
-        animate = false;
-
+        if (! (start == 1 && end == 1)){
+            throw new IllegalStateException();
+        }
     }
 
     private void wait(int millis){
@@ -77,6 +80,7 @@ public class Maze{
     Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public int solve(){
+        int[] coords = getStart();
             //find the location of the S. 
 
             //erase the S
@@ -84,6 +88,19 @@ public class Maze{
             //and start solving at the location of the s.
             //return solve(???,???);
         return -1;
+    }
+
+    private int[] getStart(){
+        int[] coords = new int[2];
+        for (int r = 0; r < maze.length; r++){
+            for (int c = 0; c < maze[0].length; c++){
+                if (maze[r][c] == 'S'){
+                    coords[0] = r;
+                    coords[1] = c;
+                }
+            }
+        }
+        return coords;
     }
 
     /*
@@ -113,8 +130,31 @@ public class Maze{
         return -1; //so it compiles
     }
 
+    public String toString(){
+        String gather = "";
+        for (int r = 0; r < maze.length; r++){
+            for (int c = 0; c < maze[0].length; c++){
+                gather += maze[r][c];
+            }
+            gather += "\n";
+        }
+        return gather;
+    }
+
     public static void main(String[] args){
-        Maze j = new Maze("data1.dat");
+        Maze test = null;
+        try {
+            test = new Maze("data1.dat");
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+            System.exit(1);
+        }
+        catch (IllegalStateException e){
+            System.out.println("Illegal file state");
+            System.exit(1);
+        }
+        System.out.println(test);
     }
 
 }
