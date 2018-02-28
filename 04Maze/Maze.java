@@ -43,10 +43,13 @@ public class Maze{
         maze = new char[rows][cols];
         Scanner data = new Scanner(file);
         for(int r = 0; r < rows; r++){
+            String line = scan.nextLine();
             for (int c = 0; c < cols; c++){
-                
+                maze[r][c] = line.charAt(c);
             }
         }
+        
+        animate = false;
 
     }
 
