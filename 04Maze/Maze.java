@@ -4,7 +4,8 @@ public class Maze{
 
     private char[][] maze;
     private boolean animate;//false by default
-
+    private int[][] moves = {{0,-1},{0,1},{-1,0},{1,0}};
+    private int path;
     /*Constructor loads a maze text file, and sets animate to false by default.
 
     1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -19,6 +20,7 @@ public class Maze{
     public Maze(String filename) throws FileNotFoundException{
       //COMPLETE CONSTRUCTOR
         setMaze(filename);
+        path = 0;
         animate = false;
     }
 
@@ -82,12 +84,14 @@ public class Maze{
     public int solve(){
         int[] coords = getStart();
             //find the location of the S. 
-
+        maze[coords[0]][coords[1]] = '@';
             //erase the S
 
             //and start solving at the location of the s.
             //return solve(???,???);
-        return -1;
+        for (int m = 0; m < 4; m++){
+            return solve(coords[0]+moves[m][0],coords[1]+moves[m][1]);
+        }
     }
 
     private int[] getStart(){
@@ -117,7 +121,29 @@ public class Maze{
             Note: This is not required based on the algorithm, it is just nice visually to see.
         All visited spots that are part of the solution are changed to '@'
     */
+
+    private boolean surroundingsEmpty(int r, int c){
+        for (int m = 0; m < moves.length; m++){
+            if (maze[r+moves[m][0]][c+moves[m][0]]){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private int solve(int row, int col){ //you can add more parameters since this is private
+
+        if (maze[row][col] == 'E'){
+            return path;
+        }
+
+        if (maze[row][col] == '#'){
+            return -1;
+        }
+
+        if (maze[row][col] == '@' && surroundingsEmpty()){
+            return -1;
+        }
 
         //automatic animation! You are welcome.
         if(animate){
