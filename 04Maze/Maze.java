@@ -90,7 +90,7 @@ public class Maze{
             //and start solving at the location of the s.
             //return solve(???,???);
         for (int m = 0; m < 4; m++){
-            int j = solve(coords[0]+moves[m][0],coords[1]+moves[m][1]);
+            int j = solve(coords[0]+moves[m][0],coords[1]+moves[m][1],m);
             if (j != -1){
                 return j;
             }
@@ -135,7 +135,10 @@ public class Maze{
         return false;
     }
 
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    private int solve(int row, int col, int mode){ //you can add more parameters since this is private
+
+        int r = row - moves[mode][0];
+        int c = col - moves[mode][1];
 
         if (maze[row][col] == 'E'){
             return path;
@@ -145,7 +148,7 @@ public class Maze{
             return -1;
         }
 
-        if (maze[row][col] == '@' && surroundingsEmpty(row, col)){
+        if (maze[row][col] == '@' && surroundingsEmpty(r, c)){
             return -1;
         } 
 
@@ -153,7 +156,7 @@ public class Maze{
             maze[row][col] = '@';
             path += 1;
             for (int m = 0; m < 4; m++){
-                int j = solve(row + moves[m][0], col + moves[m][1]);
+                int j = solve(row + moves[m][0], col + moves[m][1],m);
                 if (j != -1){
                     return j;
                 }
@@ -161,8 +164,9 @@ public class Maze{
             return -1;
         }
 
-        if (maze[row][col] == '@' && !surroundingsEmpty(row,col)){
-            maze[row][col] = '.';
+        if (maze[row][col] == '@' && !surroundingsEmpty(r,c)){                       // noooooooooooooooooooooooooooooooooooooooooooo
+            maze[r][c] = ' ';// CHANGE CHANGE CHANGE CHANGE REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+    //        maze[row][col] = '.';
             path -= 1;
             return -1;
         }
@@ -196,7 +200,7 @@ public class Maze{
     public static void main(String[] args){
         Maze test = null;
         try {
-            test = new Maze("data1.dat");
+            test = new Maze("data2.dat");
         }
         catch (FileNotFoundException e){
             System.out.println("File not found");
