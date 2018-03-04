@@ -90,8 +90,12 @@ public class Maze{
             //and start solving at the location of the s.
             //return solve(???,???);
         for (int m = 0; m < 4; m++){
-            return solve(coords[0]+moves[m][0],coords[1]+moves[m][1]);
+            int j = solve(coords[0]+moves[m][0],coords[1]+moves[m][1]);
+            if (j != -1){
+                return j;
+            }
         }
+        return -1;
     }
 
     private int[] getStart(){
@@ -124,7 +128,7 @@ public class Maze{
 
     private boolean surroundingsEmpty(int r, int c){
         for (int m = 0; m < moves.length; m++){
-            if (maze[r+moves[m][0]][c+moves[m][0]]){
+            if (maze[r+moves[m][0]][c+moves[m][0]] == ' '){
                 return true;
             }
         }
@@ -141,7 +145,25 @@ public class Maze{
             return -1;
         }
 
-        if (maze[row][col] == '@' && surroundingsEmpty()){
+        if (maze[row][col] == '@' && surroundingsEmpty(row, col)){
+            return -1;
+        } 
+
+        if (maze[row][col] == ' '){
+            maze[row][col] = '@';
+            path += 1;
+            for (int m = 0; m < 4; m++){
+                int j = solve(row + moves[m][0], col + moves[m][1]);
+                if (j != -1){
+                    return j;
+                }
+            }
+            return -1;
+        }
+
+        if (maze[row][col] == '@' && !surroundingsEmpty(row,col)){
+            maze[row][col] = '.';
+            path -= 1;
             return -1;
         }
 
@@ -150,6 +172,10 @@ public class Maze{
             clearTerminal();
             System.out.println(this);
             wait(20);
+        }
+
+        if (maze[row][col] == 'E'){
+            return path;
         }
 
         //COMPLETE SOLVE
@@ -181,6 +207,9 @@ public class Maze{
             System.exit(1);
         }
         System.out.println(test);
+        System.out.println(test.solve());
+        System.out.println(test);
+        
     }
 
 }
