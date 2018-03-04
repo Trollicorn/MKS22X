@@ -160,6 +160,7 @@ public class Maze{
                 if (j != -1){
                     return j;
                 }
+          //      maze[row][col] = ' ';
             }
             return -1;
         }
