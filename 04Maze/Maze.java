@@ -21,7 +21,6 @@ public class Maze{
       //COMPLETE CONSTRUCTOR
         setMaze(filename);
         path = 0;
-        animate = false;
     }
 
     private void setMaze(String filename) throws FileNotFoundException{
@@ -126,16 +125,23 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
 
-    private boolean surroundingsEmpty(int r, int c){
-        for (int m = 0; m < moves.length; m++){
-            if (maze[r+moves[m][0]][c+moves[m][0]] == ' '){
-                return true;
+        private boolean surroundingsEmpty(int r, int c){
+            for (int m = 0; m < moves.length; m++){
+                if (maze[r+moves[m][0]][c+moves[m][0]] == ' '){
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
-    }
 
     private int solve(int row, int col, int mode){ //you can add more parameters since this is private
+
+        if(animate){
+            clearTerminal();
+            System.out.println(this);
+            wait(150);
+        }
+
 
         int r = row - moves[mode][0];
         int c = col - moves[mode][1];
@@ -143,6 +149,8 @@ public class Maze{
         if (maze[row][col] == 'E'){
             return path;
         }
+
+        if (r )
 
         if (maze[row][col] == '#'){
             return -1;
@@ -165,20 +173,14 @@ public class Maze{
             return -1;
         }
 
-        if (maze[row][col] == '@' && !surroundingsEmpty(r,c)){                       // noooooooooooooooooooooooooooooooooooooooooooo
-            maze[r][c] = ' ';// CHANGE CHANGE CHANGE CHANGE REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-    //        maze[row][col] = '.';
+        if (maze[row][col] == '@' && !surroundingsEmpty(r,c)){
+            maze[row][col] = '.';
             path -= 1;
             return -1;
         }
 
         //automatic animation! You are welcome.
-        if(animate){
-            clearTerminal();
-            System.out.println(this);
-            wait(20);
-        }
-
+        
         if (maze[row][col] == 'E'){
             return path;
         }
