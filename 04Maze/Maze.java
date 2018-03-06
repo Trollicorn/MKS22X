@@ -88,13 +88,17 @@ public class Maze{
 
             //and start solving at the location of the s.
             //return solve(???,???);
-        for (int m = 0; m < 4; m++){
+        
+        return solve(coords[0],coords[1]);
+
+        /*for (int m = 0; m < 4; m++){
             int j = solve(coords[0]+moves[m][0],coords[1]+moves[m][1],m);
             if (j != -1){
                 return j;
             }
         }
-        return -1;
+        return -1; 
+        */
     }
 
     private int[] getStart(){
@@ -125,16 +129,7 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
 
-        private boolean surroundingsEmpty(int r, int c){
-            for (int m = 0; m < moves.length; m++){
-                if (maze[r+moves[m][0]][c+moves[m][0]] == ' '){
-                    return true;
-                }
-            }
-            return false;
-        }
-
-    private int solve(int row, int col, int mode){ //you can add more parameters since this is private
+    private int solve(int row, int col){ //you can add more parameters since this is private
 
         if(animate){
             clearTerminal();
@@ -142,48 +137,35 @@ public class Maze{
             wait(150);
         }
 
-
-        int r = row - moves[mode][0];
-        int c = col - moves[mode][1];
-
         if (maze[row][col] == 'E'){
             return path;
         }
 
-        if (r )
+        maze[row][col] = '@';
+        path += 1;
 
-        if (maze[row][col] == '#'){
-            return -1;
-        }
+        for (int m = 0; m < 4; m++){
+            
+            int r = row + moves[m][0];
+            int c = col + moves[m][1];
 
-        if (maze[row][col] == '@' && surroundingsEmpty(r, c)){
-            return -1;
-        } 
-
-        if (maze[row][col] == ' '){
-            maze[row][col] = '@';
-            path += 1;
-            for (int m = 0; m < 4; m++){
-                int j = solve(row + moves[m][0], col + moves[m][1],m);
+            if (r < maze.length && c < maze[0].length && maze[r][c] != '#' && maze[r][c] != '@'){    
+                int j = solve(row + moves[m][0], col + moves[m][1]);
                 if (j != -1){
                     return j;
                 }
+                
           //      maze[row][col] = ' ';
             }
-            return -1;
+
         }
 
-        if (maze[row][col] == '@' && !surroundingsEmpty(r,c)){
-            maze[row][col] = '.';
-            path -= 1;
-            return -1;
-        }
+
+        maze[row][col] = '.';
+        path -= 1;
 
         //automatic animation! You are welcome.
         
-        if (maze[row][col] == 'E'){
-            return path;
-        }
 
         //COMPLETE SOLVE
         return -1; //so it compiles
@@ -203,7 +185,7 @@ public class Maze{
     public static void main(String[] args){
         Maze test = null;
         try {
-            test = new Maze("data2.dat");
+            test = new Maze("data1.dat");
         }
         catch (FileNotFoundException e){
             System.out.println("File not found");
