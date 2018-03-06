@@ -1,7 +1,10 @@
 public class KnightBoard{
 
-	private int[][] board;
-
+	private int[][] board;                                                                      // _ 7 _ 0 _        
+	private int[][] moves = {{-2,1},{-1,2},{1,2},{2,1},{2,-1},{1,-2},{-1,-2},{-2,-1}};          // 6 _ _ _ 1   
+										                                                        // _ _ K _ _ 
+																				          		// 5 _ _ _ 2
+																				                // _ 4 _ 3 _
 	public KnightBoard(int startingRows, int startingCols){
 		if (startingRows < 0 || startingCols < 0){
 			throw new IllegalArgumentException();
@@ -54,128 +57,7 @@ public class KnightBoard{
 		return false;
 	}
 
-	private int[] moveKnight(int row, int col, int level, int mode){
-		int[] gather = new int[3];
-		int rowInc = 0;
-		int colInc = 0;          // _ 7 _ 0 _        
-		if (mode == 0){          // 6 _ _ _ 1   
-			rowInc = -2;         // _ _ K _ _ 
-			colInc = 1;          // 5 _ _ _ 2
-		}                        // _ 4 _ 3 _
-		if (mode == 1){
-			rowInc = -1; 
-			colInc = 2;
-		}
-		if (mode == 2){
-			rowInc = 1; 
-			colInc = 2;
-		}
-		if (mode == 3){
-			rowInc = 2; 
-			colInc = 1;
-		}
-		if (mode == 4){
-			rowInc = 2; 
-			colInc = -1;
-		}
-		if (mode == 5){
-			rowInc = 1; 
-			colInc = -2;
-		}
-		if (mode == 6){
-			rowInc = -1; 
-			colInc = -2;
-		}
-		if (mode == 7){
-			rowInc = -2; 
-			colInc = -1;
-		}
-		int moveRow = row + rowInc;
-		int moveCol = col + colInc;
-		boolean give = false;
-		if (moveRow >= board.length    || moveRow < 0 ||
-			moveCol >= board[0].length || moveCol < 0 ||
-			board[moveRow][moveCol] != 0){
-			gather[0] = 0;
-			return gather;
-		}
-		if(board[moveRow][moveCol] == 0){
-			board[moveRow][moveCol] = level;
-			gather[0]=1;
-			gather[1]= moveRow;
-			gather[2]= moveCol;
-			return gather;
-		}
-		gather[0] = 0;
-		return gather;
 
-	/*	//for (int m = 0; m < 8; m++){
-			board[moveRow][moveCol] = level;
-			if (moveKnight(moveRow,moveCol,level+1,0)){
-				give = true;
-				solveHelp(moveRow,moveCol,level+1);
-			}else{
-				board[moveRow][moveCol] = 0;
-				moveKnight(row, col, level, mode+1);
-				give = false;
-			}
-			return give;
-	//		board[moveRow][moveCol] = 0;
-			//return false;
-	//	}
-	//	return true;
-			*/		
-	} 
-
-	private boolean removeKnight(int row, int col, int level, int mode){
-		int rowInc = 0;
-		int colInc = 0;          // _ 7 _ 0 _        
-		if (mode == 4){          // 6 _ _ _ 1   
-			rowInc = -2;         // _ _ K _ _ 
-			colInc = 1;          // 5 _ _ _ 2
-		}                        // _ 4 _ 3 _
-		if (mode == 5){
-			rowInc = -1; 
-			colInc = 2;
-		}
-		if (mode == 6){
-			rowInc = 1; 
-			colInc = 2;
-		}
-		if (mode == 7){
-			rowInc = 2; 
-			colInc = 1;
-		}
-		if (mode == 0){
-			rowInc = 2; 
-			colInc = -1;
-		}
-		if (mode == 1){
-			rowInc = 1; 
-			colInc = -2;
-		}
-		if (mode == 2){
-			rowInc = -1; 
-			colInc = -2;
-		}
-		if (mode == 3){
-			rowInc = -2; 
-			colInc = -1;
-		}
-		int moveRow = row + rowInc;
-		int moveCol = col + colInc;
-		boolean give = false;
-		if (moveRow >= board.length    || moveRow < 0 ||
-			moveCol >= board[0].length || moveCol < 0 ||
-			board[moveRow][moveCol] != level-1){
-			return false;
-		}
-		if (board[moveRow][moveCol]==level-1){
-			board[moveRow][moveCol] = 0;
-			return true;
-		}
-		return false;
-	}
 
 	public int countSolutions(){
 		return 1;
