@@ -39,23 +39,24 @@ public class KnightBoard{
 	}
 
 	private boolean solveHelp(int row, int col, int level){
+		board[row][col] = level; 
 		if (level == board.length * board[0].length){
 			return true;
 		}
-		board[row][col] = level;
 		for (int mode = 0; mode < 8; mode++){
-			int[] gather = moveKnight(row,col,level,mode);
-			if (gather[0]==1){
-				boolean ok = solveHelp(gather[1],gather[2],level+1);
-				if (ok){
-					return ok;
+			int r = row + moves[mode][0];
+			int c = col + moves[mode][1];
+
+			if (r > -1 && r < board.length && c > -1 && c < board.length && board[r][c] == 0){
+				if (solveHelp(r,c,level+1)){
+					return true;
 				}
-				removeKnight(row,col,level,mode);
+				board[r][c] = 0;
 			}
-	//		removeKnight(row,col,level,mode);	
 		}
 		return false;
 	}
+
 
 
 
@@ -73,6 +74,7 @@ public class KnightBoard{
 		}
 		return false;
 	}
+
 
 	public static void main(String[] args){
 		KnightBoard b = new KnightBoard(8, 8);
