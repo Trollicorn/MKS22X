@@ -10,7 +10,7 @@ public class USACO{
 		int[][] ok;		
 
 		try{
-			int[] info = new int[4];
+		//	int[] info = new int[4];
 			File file = new File(filename);
 			Scanner scan = new Scanner(file);
 			row = Integer.parseInt(scan.next());
@@ -68,12 +68,47 @@ public class USACO{
 	}
 
 	public static int silver(String filename){
+		int rows, cols, time, r1, c1, r2, c2;
+		char[][] map;
+		int[][] past, present;		
 
+		try{
+			File file = new File(filename);
+			Scanner scan = new Scanner(file);
+			rows = Integer.parseInt(scan.next());
+			cols = Integer.parseInt(scan.next());
+			time = Integer.parseInt(scan.next());
+			map = new char[rows][cols];
+			past = new int[rows][cols];
+			present = new int[rows][cols];
+			for (int r = 0; r < rows; r++){
+				String word = scan.next();
+				for (int c = 0; c < cols; c++){
+					map[r][c] = word.charAt(c);
+				}
+			}
+			r1 = Integer.parseInt(scan.next());
+			c1 = Integer.parseInt(scan.next());
+			r2 = Integer.parseInt(scan.next());
+			c2 = Integer.parseInt(scan.next());
+
+			for (int t = 0; t < time; t++){
+				for (int r = 0; r < rows; r++){
+					for (int c = 0; c < cols; c++){
+						
+					}
+				}
+			}
+		}catch (FileNotFoundException e){
+			System.out.println("File Not Found");
+			System.exit(1);
+		}
 		return -1;
 	}
 
 	public static void main(String[] args){
-		System.out.println(USACO.bronze("makelake.in"));
+		//System.out.println(USACO.bronze("makelake.in"));
+		System.out.println(USACO.silver("ctravel.in"));
 	}
 
 }
