@@ -87,18 +87,45 @@ public class USACO{
 					map[r][c] = word.charAt(c);
 				}
 			}
-			r1 = Integer.parseInt(scan.next());
-			c1 = Integer.parseInt(scan.next());
-			r2 = Integer.parseInt(scan.next());
-			c2 = Integer.parseInt(scan.next());
+			//start 
+			r1 = Integer.parseInt(scan.next()) - 1;
+			c1 = Integer.parseInt(scan.next()) - 1;
+			past[r1][c1] = 1;
+			//end
+			r2 = Integer.parseInt(scan.next()) - 1;
+			c2 = Integer.parseInt(scan.next()) - 1;
 
 			for (int t = 0; t < time; t++){
 				for (int r = 0; r < rows; r++){
 					for (int c = 0; c < cols; c++){
-						
+						if (map[r][c] != '*'){
+							if (past[r][c] == 0){
+								if (r - 1 > -1){
+									present[r][c] += past[r-1][c];
+								}
+								if (r + 1 < rows){
+									present[r][c] += past[r+1][c];
+								}
+								if (c - 1 > -1){
+									present[r][c] += past[r][c-1];
+								}
+								if (c + 1 > cols){
+									present[r][c] += past[r][c+1];
+								}
+							}
+							else{
+								present[r][c] = 0;
+							}
+						}
+					}
+				}
+				for (int r = 0; r < rows; r++){
+					for (int c = 0; c < cols; c++){
+						past[r][c] = present[r][c];
 					}
 				}
 			}
+			return present[r2][c2];
 		}catch (FileNotFoundException e){
 			System.out.println("File Not Found");
 			System.exit(1);
