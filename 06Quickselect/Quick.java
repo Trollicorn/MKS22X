@@ -29,24 +29,26 @@ public class Quick{
 		int small = start + 1;
 		int large = end;
 
-		while (small != large){
+		while (small <= large){
 			if (data[small] < pivot){
 				small += 1;
-			}else if (data[small] >= pivot){
+			}else{
 				swap(data, small, large);
 				large -= 1;
 			}
 			
 		}
 
-		if (data[small] < pivot){
+		swap(data, start, large);
+
+	/*	if (data[small] < pivot){
 			pi = small;
 			swap(data, small, start);
 		}else{
 			pi = small - 1;
 			swap(data, small - 1, start);
-		}
-		return pi;
+		}*/
+		return large;
 
 	}
 
