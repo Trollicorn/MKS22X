@@ -1,6 +1,6 @@
 public class Quick{
 
-	public static int quickSelect(int[] data, int k){
+	public static int quickselect(int[] data, int k){
 		
 		int start = 0;
 		int end = data.length - 1;
@@ -10,9 +10,9 @@ public class Quick{
 
 		while (true){
 			int pi = partition(data, start, end);
-			if (pi == k){
+			if (pi == k - 1){
 				return data[pi];
-			}else if (pi > k){
+			}else if (pi > k - 1){
 				end = pi - 1;
 			}else{
 				start = pi + 1;
@@ -52,6 +52,39 @@ public class Quick{
 
 	}
 
+	public static void part(int[] data, int start, int end){
+		
+		int pi = (int) (Math.random() * (end - start)) + start;
+		int pivot = data[pi];
+		swap(data, start, pi);
+
+		int small = start + 1;
+		int equal = small + 1;
+		int large = end;
+
+		while (equal <= large){
+			if (data[equal] == pivot){
+				equal += 1;
+			}else if(data[equal] > pivot){
+				swap(data, equal, large);
+				large -= 1;
+			}else{ 
+				swap(data, small, equal);
+				small += 1;
+				equal += 1;
+			}
+			
+		}
+		swap(data, start, large);
+		part(data, start, small);
+		part(data, equal, large);
+	}
+
+
+	public static void quicksort(int[] data){
+		//
+	}
+
 	private static void print(int[] stuff){
 		String gather = "{ ";
 		for (int i = 0; i < stuff.length; i++){
@@ -69,18 +102,14 @@ public class Quick{
 
 	public static void main(String[] args){
 	/*	int[] p = {999,999,999,4,1,0,3,2,999,999,999};
-		System.out.println(Quick.partition(p, 0, p.length - 1));
-		for (int i = 0; i < p.length; i++){
-			System.out.println(p[i] + " ");
-		}
-	*/
+		System.out.println(partition(p, 0, p.length - 1));
+		print(p); 
 		int[] test = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
-		System.out.println(Quick.quickSelect(test, 3));
-		String gather = "{";
-		for (int i = 0; i < test.length; i++){
-			gather += test[i] + ", ";
-		}
-		System.out.println(gather + "}");
+		System.out.println(quickselect(test, 7));
+		print(test); */
+		int[] test = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
+		part(test,0,test.length-1);
+		print(test);
 	}
 
 }
