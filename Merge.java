@@ -1,8 +1,53 @@
 public class Merge{
 
 
-	public static void mergesort(int[] data){
+	public static void mergesortOld(int[] data){
 		mergeHelp(data, 0, data.length - 1);
+	}
+
+	public static void mergesort(int[] data){
+		int[] temp = new int[data.length];
+		msort(data, temp, 0, data.length - 1);
+	}
+
+	private static void msort(int[] data, int[] temp, int start, int end){
+		if (start == end){
+			return;
+		}
+		int mid = (start + end) / 2;		
+		msort(temp, data, start, mid);
+		msort(temp, data, mid + 1, end);
+		merge(temp, data, start, mid, end);
+	}
+
+	private static void merge(int[] data, int[] temp, int start, int mid, int end){
+		int left = 0;
+		int right = 0;
+		int inc = 0;
+		while (start + left < mid + 1 && mid + 1 + right < end + 1){
+			if (data[start + left] < data[mid + 1 + right]){
+				temp[start + inc] = data[start + left];
+				left++;
+				inc++;
+			}else{
+				temp[start] + inc] = data[mid + 1 + right];
+				right++;
+				inc++;
+			}
+		}
+		if (start + left == mid + 1 && mid + 1 + right != end + 1){
+			while (mid + 1 + right < end + 1){
+				temp[start + inc] = data[mid + 1 + right];
+				right++;
+				inc++;
+			}
+		}else if (mid + 1 + right == end + 1 && start + left != mid + 1){
+			while (start + left < mid + 1){
+				temp[start + inc] = data[start + left];
+				left++;
+				inc++;
+			}
+		}
 	}
 
 	private static void mergeHelp(int[] data, int start, int end){
@@ -64,11 +109,9 @@ public class Merge{
 	}
 
 	public static void main(String[] args){
-		int[] test = {4,2,8,1,6,3};
+		int[] test = {4,2,8,1,6,9,4,5};
 		mergesort(test);
 		print(test);
-		int i = (int) (Math.log(53)/Math.log(2));
-		System.out.println(i);
 	}
 
 
