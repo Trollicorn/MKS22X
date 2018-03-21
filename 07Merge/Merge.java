@@ -154,7 +154,11 @@ public class Merge{
 	}
 
 	public static void main(String[] args){
-		int[] test = {4,2,8,1,6,9,3,5};
+		int[] test = {4,2,8,1,5};
+	//	int[] test = {4,2,8,1,6,9,3,5};
+	//	int[] test = {4,2,8,1,6,9,3,5};
+	//	int[] test = {4,2,8,1,6,9,3,5};
+	//	int[] test = {4,2,8,1,6,9,3,5};
 		//mergesort(test);
 		forMerge(test);
 		print(test);
