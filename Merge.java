@@ -95,8 +95,49 @@ public class Merge{
 	}
 
 	public static void forMerge(int[] data){
-		for (int deno = 1; deno < (Math.log(data.length)/Math.log(2)) + 1; deno++){
-
+		int log = (int)(Math.log(data.length)/Math.log(2)) + 1;
+		for (int level = 1; level < log; level++){
+			int[] temp = new int[(int)Math.pow(2,level)];
+			//print(temp);
+			for (int i = 0; i < data.length; i += (int)Math.pow(2,level)){
+			//	System.out.println(data[i]);
+				int j = 0;
+				int inc1 = 0;
+				int inc2 = 0;
+				while (j < temp.length && inc1 < (int)Math.pow(2,level-1) && inc2 < (int)Math.pow(2,level-1)){
+				//	System.out.println(inc1 + "," + inc2);
+				//	System.out.println(data[i + inc1] + "," + data[i + (int)Math.pow(2,level-1) + inc2]);
+					if (data[i + inc1] < data[i + (int)Math.pow(2,level-1) + inc2]){
+						temp[j] = data[i + inc1];
+						inc1++;
+					}else{
+						temp[j] = data[i + (int)Math.pow(2,level-1) + inc2];
+						inc2++;
+					}
+					j++;
+				}
+				if (j < temp.length){
+					if (inc1 == (int)Math.pow(2,level-1) && inc2 < (int)Math.pow(2,level-1)){
+						while(inc2 < (int)Math.pow(2,level-1)){
+							temp[j] = data[i + (int)Math.pow(2,level-1) + inc2];
+							inc2++;
+						}
+					}else if (inc2 == (int)Math.pow(2,level-1)){
+						while(inc1 < (int)Math.pow(2,level-1)){
+							temp[j] = data[i + inc1];
+							inc1++;
+						}
+					}
+				}
+			//	print(temp);
+				for (int k = 0; k < temp.length; k++){
+					//System.out.println(i+k+","+k);
+					data[i+k] = temp[k];
+					//print(data);
+				}
+		//		print(data);
+			}
+			//print(data);
 		}
 	}
 
@@ -113,8 +154,9 @@ public class Merge{
 	}
 
 	public static void main(String[] args){
-		int[] test = {4,2,8,1,6,9,4,5};
-		mergesort(test);
+		int[] test = {4,2,8,1,6,9,3,5};
+		//mergesort(test);
+		forMerge(test);
 		print(test);
 	}
 
