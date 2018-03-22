@@ -7,20 +7,20 @@ public class Merge{
 
 	public static void mergesort(int[] data){
 		int[] temp = new int[data.length];
-		msort(data, temp, 0, data.length - 1);
+		mergesort(data, temp, 0, data.length - 1);
 		int len = data.length;
 		if ( (int)(Math.log(len)/Math.log(2)) % 2 == 1 ){
 			merge(data, temp, 0, (data.length - 1)/2, data.length-1);
 		}
 	}
 
-	private static void msort(int[] data, int[] temp, int start, int end){
+	private static void mergesort(int[] data, int[] temp, int start, int end){
 		if (start == end){
 			return;
 		}
 		int mid = (start + end) / 2;		
-		msort(temp, data, start, mid);
-		msort(temp, data, mid + 1, end);
+		mergesort(temp, data, start, mid);
+		mergesort(temp, data, mid + 1, end);
 		merge(temp, data, start, mid, end); // temp into data
 	}
 
@@ -154,13 +154,16 @@ public class Merge{
 	}
 
 	public static void main(String[] args){
-		int[] test = {4,2,8,1,5};
-	//	int[] test = {4,2,8,1,6,9,3,5};
+	//	int[] test = {4,2,8,1,5,4,657,23452,2423,3214,523, 33, 3, 4, 5, 6, 7, 1, 2, 4, 5,2 , 6,2,523,532,5};
+		int[] test = new int[100];
+		for (int i = 0; i < test.length; i++){
+			test[i] = (int)(Math.random()*100);
+		}
 	//	int[] test = {4,2,8,1,6,9,3,5};
 	//	int[] test = {4,2,8,1,6,9,3,5};
 	//	int[] test = {4,2,8,1,6,9,3,5};
 		//mergesort(test);
-		forMerge(test);
+		mergesortOld(test);
 		print(test);
 	}
 

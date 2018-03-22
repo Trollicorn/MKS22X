@@ -20,7 +20,7 @@ public class Quick{
 		}
 	}
 
-	/*public static int partition(int[] data, int start, int end){
+	public static int partition(int[] data, int start, int end){
 		
 		int pi = (int) (Math.random() * (end - start)) + start;
 		int pivot = data[pi];
@@ -40,9 +40,9 @@ public class Quick{
 		}
 		swap(data, start, large);
 		return large;
-	}*/
+	}
 
-	public static int partition(int[] data, int start, int end){
+	public static int part(int[] data, int start, int end){
 		int pi = (int) (Math.random() * (end - start)) + start;
 		int pivot = data[pi];
 		swap(data, start, pi);
@@ -70,7 +70,16 @@ public class Quick{
 
 
 	public static void quicksort(int[] data){
-//		part(data, 0, data.length - 1);
+		quickhelp(data,0,data.length-1);
+	}
+
+	private static void quickhelp(int[] data, int start, int end){
+		if (start == end){
+			return;
+		}
+		int pi = partition(data, start, end);
+		quickhelp(data,start,pi);
+		quickhelp(data,pi,end);
 	}
 
 	private static void print(int[] stuff){
@@ -92,12 +101,12 @@ public class Quick{
 		int[] p = {999,999,999,4,1,0,3,2,999,999,999};
 		System.out.println(partition(p, 0, p.length - 1));
 		print(p);
-	/*	int[] test = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
+		int[] test = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
 		System.out.println(quickselect(test, 7));
-		print(test);*/ 
-	/*	int[] test = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
-		quicksort(test);
-		print(test); */
+		print(test);
+	//	int[] ee = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
+	//	quicksort(ee);
+	//	print(ee); 
 
 	}
 
