@@ -70,7 +70,7 @@ public class Test extends Merge{
 	 * Test your sort here!
 	 */
 
-		Merge.mergesortOld(start);
+		Merge.mergesort(start);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 		if(Arrays.equals(start,result)){
