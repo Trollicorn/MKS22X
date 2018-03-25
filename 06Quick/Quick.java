@@ -109,7 +109,7 @@ public class Quick{
 		int[] test = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
 		System.out.println(quickselect(test, 7));
 		print(test);
-		int[] ee = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
+		int[] ee = {17, 17, 17, 17, 17, 17, 17, 17, 17, 17};
 		quicksort(ee);
 		print(ee); 
 

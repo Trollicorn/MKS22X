@@ -70,7 +70,7 @@ public class Test extends Quick{
 	 * Test your sort here!
 	 */
 
-		Merge.quicksort(start);
+		Quick.quicksort(start);
 
 		long elapsedTime = System.currentTimeMillis() - startTime;
 		if(Arrays.equals(start,result)){
