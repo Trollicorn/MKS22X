@@ -25,7 +25,8 @@ public class Merge{
 		mergesort(temp, data, start, mid);
 		mergesort(temp, data, mid + 1, end);
 		merge(temp, data, start, mid, end); // temp into data
-	}
+	} 
+
 
 	private static void merge(int[] data, int[] temp, int start, int mid, int end){
 		int left = 0;
@@ -35,25 +36,24 @@ public class Merge{
 			if (temp[start + left] < temp[mid + 1 + right]){
 				data[start + inc] = temp[start + left];
 				left++;
-				inc++;
 			}else{
 				data[start + inc] = temp[mid + 1 + right];
 				right++;
-				inc++;
 			}
+			inc++;
 		}
-		if (start + left == mid + 1 && mid + 1 + right != end + 1){
-			while (mid + 1 + right < end + 1){
-				data[start + inc] = temp[mid + 1 + right];
-				right++;
-				inc++;
-			}
-		}else if (mid + 1 + right == end + 1 && start + left != mid + 1){
-			while (start + left < mid + 1){
-				data[start + inc] = temp[start + left];
-				left++;
-				inc++;
-			}
+
+		while (mid + 1 + right < end + 1){
+			data[start + inc] = temp[mid + 1 + right];
+			right++;
+			inc++;
+		}
+		
+		while (start + left < mid + 1){
+			data[start + inc] = temp[start + left];
+			left++;
+			inc++;
+
 		}
 	}
 
@@ -98,7 +98,7 @@ public class Merge{
 		return temp;
 	}
 
-	public static void forMerge(int[] data){
+/*	public static void forMerge(int[] data){
 		int log = (int)(Math.log(data.length)/Math.log(2)) + 1;
 		for (int level = 1; level < log; level++){
 			int[] temp = new int[(int)Math.pow(2,level)];
@@ -144,7 +144,7 @@ public class Merge{
 			//print(data);
 		}
 	}
-
+*/
 	private static void print(int[] data){
 		String gather = "[";
 		for (int i = 0; i < data.length; i++){

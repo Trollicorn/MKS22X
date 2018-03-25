@@ -42,7 +42,7 @@ public class Quick{
 		return large;
 	}
 
-	public static int part(int[] data, int start, int end){
+	public static int[] part(int[] data, int start, int end){
 		int pi = (int) (Math.random() * (end - start)) + start;
 		int pivot = data[pi];
 		swap(data, start, pi);
@@ -65,21 +65,26 @@ public class Quick{
 			
 		}
 		swap(data, start, large);
-		return small;
+
+		int[] temp = {small, large};
+		return temp;
 	}
 
 
 	public static void quicksort(int[] data){
+		if (data.length == 0){
+			return;
+		}
 		quickhelp(data,0,data.length-1);
 	}
 
 	private static void quickhelp(int[] data, int start, int end){
-		if (start == end){
+		if (start >= end){
 			return;
 		}
 		int pi = partition(data, start, end);
 		quickhelp(data,start,pi);
-		quickhelp(data,pi,end);
+		quickhelp(data,pi + 1,end);
 	}
 
 	private static void print(int[] stuff){
@@ -104,9 +109,9 @@ public class Quick{
 		int[] test = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
 		System.out.println(quickselect(test, 7));
 		print(test);
-	//	int[] ee = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
-	//	quicksort(ee);
-	//	print(ee); 
+		int[] ee = {17, 61, 67, 47, 93, 12, 20, 4, 44, 68};
+		quicksort(ee);
+		print(ee); 
 
 	}
 
