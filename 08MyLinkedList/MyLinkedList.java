@@ -48,13 +48,15 @@ public class MyLinkedList{
 		
 		Node temp = new Node(value);
 
-		if (length == 0){
+		if (size() == 0){
 			first = temp;
+			last = temp;
 		}else{
 			last.setNext(temp);
 			temp.setPrev(last);
 			last = temp;
 		}
+		length++;
 		return true;
 	}
 
@@ -69,9 +71,9 @@ public class MyLinkedList{
 			gather += " " + node + ",";
 			node = node.getNext();
 		}
-		if (gather.length() != 1){
-			gather = gather.substring(0, gather.length() - 1);
-		}
+//		if (gather.length() != 1){
+//			gather = gather.substring(0, gather.length() - 1);
+//		}
 		return gather + "]";
 	}
 
@@ -135,11 +137,29 @@ public class MyLinkedList{
 		temp.setNext(node.getNext());
 		temp.getNext().setPrev(temp);
 		temp.getPrev().setNext(temp);
+		length++;
 	}
 
 	public int remove(int index){
-		if (index < 0 || index >= size()){
+		if (index < 0 || index > size()){
 			throw new IndexOutOfBoundsException();
+		}
+		if (size() == 1){
+			int re = first.getValue();
+			first = null;
+			last = null;
+			return re;
+		}
+		if (index == size() - 1){
+			int re = last.getValue();
+			last.getPrev().setNext(null);
+			last = last.getPrev();
+			return re;
+		}
+		if (index == 0){
+			int re = first.getValue();
+			first = first.getNext();
+			return re;
 		}
 		Node node = first;
 		int i = 0;
@@ -150,7 +170,20 @@ public class MyLinkedList{
 		int re = node.getValue();
 		node.getNext().setPrev(node.getPrev());
 		node.getPrev().setNext(node.getNext());
+		length--;
 		return re;
+	}
+
+	public static void main(String[] args){
+		MyLinkedList L = new MyLinkedList();
+		L.add(9);
+		L.add(8);
+		L.add(7);
+		L.add(6);
+		L.remove(2);
+		L.remove(2);
+	//	L.remove(2);
+		System.out.println(L);
 	}
 
 }
