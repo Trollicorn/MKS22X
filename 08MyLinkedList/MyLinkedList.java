@@ -64,6 +64,12 @@ public class MyLinkedList{
 		return length;
 	}
 
+	public void clear(){
+		first = null;
+		last = null;
+		length = 0;
+	}
+
 	public String toString(){
 		String gather = "[";
 		Node node = first;
@@ -71,9 +77,9 @@ public class MyLinkedList{
 			gather += " " + node + ",";
 			node = node.getNext();
 		}
-//		if (gather.length() != 1){
-//			gather = gather.substring(0, gather.length() - 1);
-//		}
+		if (gather.length() != 1){
+			gather = gather.substring(0, gather.length() - 1) + " ";
+		}
 		return gather + "]";
 	}
 
@@ -126,9 +132,17 @@ public class MyLinkedList{
 			add(value);
 			return;
 		}
+		if (index == 0){
+			Node temp = new Node(value);
+			temp.setNext(first);
+			first.setPrev(temp);
+			first = temp;
+			length++;
+			return;
+		}
 		Node node = first;
 		int i = 0;
-		while (i < index){
+		while (i < index - 1){
 			node = node.getNext();
 			i++;
 		}
@@ -141,19 +155,21 @@ public class MyLinkedList{
 	}
 
 	public int remove(int index){
-		if (index < 0 || index > size()){
+		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
 		if (size() == 1){
 			int re = first.getValue();
 			first = null;
 			last = null;
+			length--;
 			return re;
 		}
 		if (index == size() - 1){
 			int re = last.getValue();
 			last.getPrev().setNext(null);
 			last = last.getPrev();
+			length--;
 			return re;
 		}
 		if (index == 0){
@@ -174,15 +190,14 @@ public class MyLinkedList{
 		return re;
 	}
 
+
 	public static void main(String[] args){
 		MyLinkedList L = new MyLinkedList();
 		L.add(9);
-		L.add(8);
-		L.add(7);
-		L.add(6);
-		L.remove(2);
-		L.remove(2);
-	//	L.remove(2);
+		L.add(1, 8);
+		L.add(0, 7);
+		L.add(2, 6);
+		L.add(4, 4);
 		System.out.println(L);
 	}
 
