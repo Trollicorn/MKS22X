@@ -7,7 +7,7 @@ public class MyLinkedList{
 	private class Node{
 		private Node next;
 		private Node prev; 
-		private int data;
+		private Integer data;
 
 		private Node(int element){
 			data = element;
@@ -21,7 +21,7 @@ public class MyLinkedList{
 		private Node getPrev(){
 			return prev;
 		}
-		private int getValue(){
+		private Integer getValue(){
 			return data;
 		}
 		public String toString(){
@@ -44,7 +44,7 @@ public class MyLinkedList{
 		length = 0;
 	}
 
-	public boolean add(int value){
+	public boolean add(Integer value){
 		
 		Node temp = new Node(value);
 
@@ -83,7 +83,7 @@ public class MyLinkedList{
 		return gather + "]";
 	}
 
-	public int get(int index){
+	public Integer get(int index){
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
@@ -96,7 +96,7 @@ public class MyLinkedList{
 		return node.getValue();
 	}
 
-	public int set(int index, int element){
+	public int set(int index, Integer element){
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
@@ -106,16 +106,16 @@ public class MyLinkedList{
 			node = node.getNext();
 			i++;
 		}
-		int re = node.getValue();
+		Integer re = node.getValue();
 		node.setValue(element);
 		return re;
 	}
 
-	public int indexOf(int value){
+	public int indexOf(Integer value){
 		Node node = first;
 		int i = 0;
 		while (node != null){
-			if (node.getValue() == value){
+			if (node.getValue().equals(value)){
 				return i;
 			}
 			node = node.getNext();
@@ -124,7 +124,7 @@ public class MyLinkedList{
 		return -1; 
 	}
 
-	public void add(int index, int value){
+	public void add(int index, Integer value){
 		if (index < 0 || index > size()){
 			throw new IndexOutOfBoundsException();
 		}
@@ -154,26 +154,26 @@ public class MyLinkedList{
 		length++;
 	}
 
-	public int remove(int index){
+	public Integer remove(int index){
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
 		if (size() == 1){
-			int re = first.getValue();
+			Integer re = first.getValue();
 			first = null;
 			last = null;
 			length--;
 			return re;
 		}
 		if (index == size() - 1){
-			int re = last.getValue();
+			Integer re = last.getValue();
 			last.getPrev().setNext(null);
 			last = last.getPrev();
 			length--;
 			return re;
 		}
 		if (index == 0){
-			int re = first.getValue();
+			Integer re = first.getValue();
 			first = first.getNext();
 			return re;
 		}
@@ -183,7 +183,7 @@ public class MyLinkedList{
 			node = node.getNext();
 			i++;
 		}
-		int re = node.getValue();
+		Integer re = node.getValue();
 		node.getNext().setPrev(node.getPrev());
 		node.getPrev().setNext(node.getNext());
 		length--;
