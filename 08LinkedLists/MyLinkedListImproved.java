@@ -44,6 +44,14 @@ public class MyLinkedListImproved<E>{
 		length = 0;
 	}
 
+	private Node getNode(int index){
+		Node node = first;
+		for (int i = 0; i < index; i++){
+			node = node.getNext();
+		}
+		return node;
+	}
+
 	public boolean add(E value){
 		
 		Node<E> temp = new Node<E>(value);
@@ -87,12 +95,7 @@ public class MyLinkedListImproved<E>{
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
-		Node<E> node = first;
-		int i = 0;
-		while (i < index){
-			node = node.getNext();
-			i++;
-		}
+		Node<E> node = getNode(index);
 		return node.getValue();
 	}
 
@@ -100,12 +103,7 @@ public class MyLinkedListImproved<E>{
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
-		Node<E> node = first;
-		int i = 0;
-		while (i < index){
-			node = node.getNext();
-			i++;
-		}
+		Node<E> node = getNode(index);
 		E re = node.getValue();
 		node.setValue(element);
 		return re;
@@ -140,12 +138,7 @@ public class MyLinkedListImproved<E>{
 			length++;
 			return;
 		}
-		Node<E> node = first;
-		int i = 0;
-		while (i < index - 1){
-			node = node.getNext();
-			i++;
-		}
+		Node<E> node = getNode(index - 1);
 		Node<E> temp = new Node<E>(value);
 		temp.setPrev(node);
 		temp.setNext(node.getNext());
@@ -158,35 +151,24 @@ public class MyLinkedListImproved<E>{
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
+		E re;
 		if (size() == 1){
-			E re = first.getValue();
+			re = first.getValue();
 			first = null;
 			last = null;
-			length--;
-			return re;
-		}
-		if (index == size() - 1){
-			E re = last.getValue();
+		}else if (index == size() - 1){
+			re = last.getValue();
 			last.getPrev().setNext(null);
 			last = last.getPrev();
-			length--;
-			return re;
-		}
-		if (index == 0){
-			E re = first.getValue();
+		}else if (index == 0){
+			re = first.getValue();
 			first = first.getNext();
-			length--;
-			return re;
+		}else{
+			Node<E> node = getNode(index);
+			re = node.getValue();
+			node.getNext().setPrev(node.getPrev());
+			node.getPrev().setNext(node.getNext());
 		}
-		Node<E> node = first;
-		int i = 0;
-		while (i < index){
-			node = node.getNext();
-			i++;
-		}
-		E re = node.getValue();
-		node.getNext().setPrev(node.getPrev());
-		node.getPrev().setNext(node.getNext());
 		length--;
 		return re;
 	}
