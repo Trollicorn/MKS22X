@@ -175,6 +175,7 @@ public class MyLinkedListImproved<E>{
 		if (index == 0){
 			E re = first.getValue();
 			first = first.getNext();
+			length--;
 			return re;
 		}
 		Node<E> node = first;

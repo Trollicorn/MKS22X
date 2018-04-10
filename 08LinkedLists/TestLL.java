@@ -1,7 +1,7 @@
  import java.util.LinkedList;
  public class TestLL{
  	public static void main(String[]args){
- 		MyLinkedList nums = new MyLinkedList();
+ 		MyLinkedListImproved<Integer> nums = new MyLinkedListImproved<>();
  		LinkedList<Integer> nums2 = new LinkedList<>();
 
  		for(int i = 0; i < 2000; i++  ){
@@ -18,24 +18,30 @@
  		System.out.println("PASS Randomized adds");
 
  		int max = nums.size();
- 		System.out.println("hello");
+ 	
  		for(int i = 0; i < max/2; i++  ){
  			if(nums.remove(i)!=nums2.remove(i).intValue()){
  				System.out.println("FAIL while removing index: "+i);
  				return;
  			}
  		}
+ 		System.out.println("done");
  		nums.remove(0);
  		nums2.remove(0);
  		nums.remove(nums.size()-1);
  		nums2.remove(nums2.size()-1);
 
+ 		System.out.println("done2");
+		int count = 0;
+	 		
  		for(int i = 0; i < nums.size(); i++  ){
+ 			count++;
  			if(nums.get(i)!=nums2.get(i).intValue()){
  				System.out.println("FAIL consecutive removes");
  				return;
  			}
  		}
+ 	
  		System.out.println("PASS consecutive removes");
 
 
