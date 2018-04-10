@@ -1,39 +1,39 @@
-public class MyLinkedListImproved<E>{
+public class MyLinkedListImproved<T>{
 
-	private Node<E> first; 
-	private Node<E> last;
+	private Node first; 
+	private Node last;
 	private int length;
 
-	private class Node<E>{
-		private Node<E> next;
-		private Node<E> prev; 
-		private E data;
+	private class Node{
+		private Node next;
+		private Node prev; 
+		private T data;
 
-		private Node(E element){
+		private Node(T element){
 			data = element;
 			next = null; 
 			prev = null;
 		}
 
-		private Node<E> getNext(){
+		private Node getNext(){
 			return next;
 		}
-		private Node<E> getPrev(){
+		private Node getPrev(){
 			return prev;
 		}
-		private E getValue(){
+		private T getValue(){
 			return data;
 		}
 		public String toString(){
 			return "" + data;
 		}
-		private void setNext(Node<E> n){
+		private void setNext(Node n){
 			next = n;
 		}
-		private void setPrev(Node<E> n){
+		private void setPrev(Node n){
 			prev = n;
 		}
-		private void setValue(E i){
+		private void setValue(T i){
 			data = i;
 		}
 	}
@@ -52,9 +52,9 @@ public class MyLinkedListImproved<E>{
 		return node;
 	}
 
-	public boolean add(E value){
+	public boolean add(T value){
 		
-		Node<E> temp = new Node<E>(value);
+		Node temp = new Node(value);
 
 		if (size() == 0){
 			first = temp;
@@ -80,7 +80,7 @@ public class MyLinkedListImproved<E>{
 
 	public String toString(){
 		String gather = "[";
-		Node<E> node = first;
+		Node node = first;
 		while (node != null){
 			gather += " " + node + ",";
 			node = node.getNext();
@@ -91,26 +91,26 @@ public class MyLinkedListImproved<E>{
 		return gather + "]";
 	}
 
-	public E get(int index){
+	public T get(int index){
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
-		Node<E> node = getNode(index);
+		Node node = getNode(index);
 		return node.getValue();
 	}
 
-	public E set(int index, E element){
+	public T set(int index, T element){
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
-		Node<E> node = getNode(index);
-		E re = node.getValue();
+		Node node = getNode(index);
+		T re = node.getValue();
 		node.setValue(element);
 		return re;
 	}
 
-	public int indexOf(E value){
-		Node<E> node = first;
+	public int indexOf(T value){
+		Node node = first;
 		int i = 0;
 		while (node != null){
 			if (node.getValue().equals(value)){
@@ -122,7 +122,7 @@ public class MyLinkedListImproved<E>{
 		return -1; 
 	}
 
-	public void add(int index, E value){
+	public void add(int index, T value){
 		if (index < 0 || index > size()){
 			throw new IndexOutOfBoundsException();
 		}
@@ -131,15 +131,15 @@ public class MyLinkedListImproved<E>{
 			return;
 		}
 		if (index == 0){
-			Node<E> temp = new Node<E>(value);
+			Node temp = new Node(value);
 			temp.setNext(first);
 			first.setPrev(temp);
 			first = temp;
 			length++;
 			return;
 		}
-		Node<E> node = getNode(index - 1);
-		Node<E> temp = new Node<E>(value);
+		Node node = getNode(index - 1);
+		Node temp = new Node(value);
 		temp.setPrev(node);
 		temp.setNext(node.getNext());
 		temp.getNext().setPrev(temp);
@@ -147,11 +147,11 @@ public class MyLinkedListImproved<E>{
 		length++;
 	}
 
-	public E remove(int index){
+	public T remove(int index){
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
 		}
-		E re;
+		T re;
 		if (size() == 1){
 			re = first.getValue();
 			first = null;
@@ -164,7 +164,7 @@ public class MyLinkedListImproved<E>{
 			re = first.getValue();
 			first = first.getNext();
 		}else{
-			Node<E> node = getNode(index);
+			Node node = getNode(index);
 			re = node.getValue();
 			node.getNext().setPrev(node.getPrev());
 			node.getPrev().setNext(node.getNext());
@@ -173,8 +173,8 @@ public class MyLinkedListImproved<E>{
 		return re;
 	}
 
-	public boolean remove(E value){
-		Node<E> node = first;
+	public boolean remove(T value){
+		Node node = first;
 		int i = 0;
 		while (node != null){
 			if (node.getValue().equals(value)){
