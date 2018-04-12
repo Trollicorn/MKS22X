@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MyLinkedListImproved<T> implements Iterable<T>{
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
 
 	private Node first; 
 	private Node last;
@@ -127,6 +127,14 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 		return node.getValue();
 	}
 
+	private Node getFirst(){
+		return first;
+	}
+
+	private Node getLast(){
+		return last;
+	}
+
 	public T set(int index, T element){
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
@@ -227,20 +235,47 @@ public class MyLinkedListImproved<T> implements Iterable<T>{
 		return false;
 	}
 
+	public T min(){
+		T min = get(0);
+		for (T i : this){
+		//	if (min.compare)
+		}
+		return min;
+	}
+
+	public void extend(MyLinkedListImproved<T> other){
+		if (other.size() == 0){
+			//do nothing
+		}else if(size() == 0){
+			first = other.getFirst();
+			last = other.getLast();
+			length = other.size();
+			other.clear();
+		}else{
+			this.getLast().setNext(other.getFirst());
+			last = other.getLast();
+			length += other.size();
+			other.clear();
+		}
+	}
+
 	public static void main(String[] args){
 		MyLinkedListImproved<String> L = new MyLinkedListImproved<>();
 		L.add("two"); 
 		L.add(1, "four");
-		L.add(0, "one"); 
-		L.add(2, "three");
-		L.add(4, "five"); 
+		MyLinkedListImproved<String> B = new MyLinkedListImproved<>();
+		B.add("one"); 
+		B.add("three");
+		B.add("five"); 
 		System.out.println(L);
-		System.out.println(L.remove("three"));
+		System.out.println(B);
+		L.extend(B);
 		System.out.println(L);
+		System.out.println(B);
+//		for (String str : L){
+//			System.out.println(str);
+//		}
 
-		for (String str : L){
-			System.out.println(str);
-		}
 
 	}
 
