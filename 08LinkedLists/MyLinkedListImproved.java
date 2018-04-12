@@ -1,4 +1,6 @@
-public class MyLinkedListImproved<T>{
+import java.util.*;
+
+public class MyLinkedListImproved<T> implements Iterable<T>{
 
 	private Node first; 
 	private Node last;
@@ -42,6 +44,32 @@ public class MyLinkedListImproved<T>{
 		first = null;
 		last = null; 
 		length = 0;
+	}
+
+	public Iterator<T> iterator(){
+		return new Listerator(first);
+	}
+
+	public class Listerator implements Iterator<T>{
+		private Node cursor;
+
+		public Listerator(Node first){
+			cursor = first;
+		}
+
+		public boolean hasNext(){
+			return cursor != null;
+		}
+
+		public T next(){
+			if (hasNext()){
+				T value = cursor.getValue();
+				cursor = cursor.getNext();
+				return value;
+			}
+			throw new NoSuchElementException();
+		}
+
 	}
 
 	private Node getNode(int index){
@@ -209,6 +237,10 @@ public class MyLinkedListImproved<T>{
 		System.out.println(L);
 		System.out.println(L.remove("three"));
 		System.out.println(L);
+
+		for (String str : L){
+			System.out.println(str);
+		}
 
 	}
 
