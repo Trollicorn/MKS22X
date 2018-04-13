@@ -127,14 +127,6 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 		return node.getValue();
 	}
 
-	private Node getFirst(){
-		return first;
-	}
-
-	private Node getLast(){
-		return last;
-	}
-
 	public T set(int index, T element){
 		if (index < 0 || index >= size()){
 			throw new IndexOutOfBoundsException();
@@ -235,29 +227,48 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 		return false;
 	}
 
-	public T min(){
-		T min = get(0);
-		for (T i : this){
-		//	if (min.compare)
+	public int min(){
+		if (size() == 0){
+			return -1;
 		}
-		return min;
+		T min = first.getValue();
+		for (T i : this){
+			if (i.compareTo(min) < 0){
+				min = i;
+			}
+		}
+		return indexOf(min);
+	}
+
+	public int max(){
+		if (size() == 0){
+			return -1;
+		}
+		T max = first.getValue();
+		for (T i : this){
+			if (i.compareTo(max) > 0){
+				max = i;
+			}
+		}
+		return indexOf(max);
 	}
 
 	public void extend(MyLinkedListImproved<T> other){
 		if (other.size() == 0){
 			//do nothing
 		}else if(size() == 0){
-			first = other.getFirst();
-			last = other.getLast();
+			first = other.first;
+			last = other.last;
 			length = other.size();
 			other.clear();
 		}else{
-			this.getLast().setNext(other.getFirst());
-			last = other.getLast();
+			this.last.setNext(other.first);
+			last = other.last;
 			length += other.size();
 			other.clear();
 		}
 	}
+
 
 	public static void main(String[] args){
 		MyLinkedListImproved<String> L = new MyLinkedListImproved<>();
