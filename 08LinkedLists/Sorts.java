@@ -25,18 +25,20 @@ public class Sorts{
 
 		@SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] bucket = new MyLinkedListImproved[10];
 		MyLinkedListImproved<Integer> pos = new MyLinkedListImproved<>();
+		MyLinkedListImproved<Integer> neg = new MyLinkedListImproved<>();
 		for (int m = 0; m < 10; m++){
 			bucket[m] = new MyLinkedListImproved<Integer>();
 		}
 
-		int k = 0;
+		
 		for (Integer j : data){
 			if (j >= 0){
-				pos.add(data.remove(k));
+				pos.add(j);
 			}else{
-				k++;
+				neg.add(j);
 			}
 		}
+		data.clear();
 
 		int max = pos.get(pos.max());
 		int digitP = (int)Math.log10(max) + 1;
@@ -51,7 +53,10 @@ public class Sorts{
 			}
 		}
 
-		int min = data.get(data.min());
+	//	System.out.println(pos);
+	//	System.out.println(neg);
+
+		int min = neg.get(neg.min());
 		int digitN = (int)Math.log10(-1 * min) + 1;
 		for (int d = 0; d < digitN; d++){
 			for (Integer j : data){
@@ -64,6 +69,7 @@ public class Sorts{
 			}
 		}
 
+		data.extend(neg);
 		data.extend(pos);
 
 
