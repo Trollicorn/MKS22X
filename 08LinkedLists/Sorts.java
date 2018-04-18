@@ -64,16 +64,20 @@ public class Sorts{
 		for (int d = 0; d < digitN; d++){
 			for (Integer j : data){
 				int num = (-1 * j / (int) Math.pow(10,d)) % 10;
-				bucket[9 - num].add(j);
+				bucket[num].add(0,j);
 			}
 			neg.clear();
 			for (int i = 0; i < 10; i++){
-				neg.extend(bucket[i]);
+		//		System.out.println("bucket" + i);
+		//		System.out.println(bucket[i]);
+				neg.extend(bucket[9-i]);
 			}
+			System.out.println(d);
+			System.out.println(neg);
 		}
 
-	//	System.out.println(neg);
-	//	System.out.println(pos);
+		System.out.println(pos);
+		System.out.println(neg);
 
 		data.extend(neg);
 		data.extend(pos);
