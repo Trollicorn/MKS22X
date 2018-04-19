@@ -4,7 +4,6 @@ public class Calculator{
 	
 	public static double eval(String s){
 		LinkedList<Double> stack = new LinkedList<>();
-		double num = 0;
 		String[] stuff = s.split(" ");
 
 		for (int i = 0; i < stuff.length; i++){
@@ -14,33 +13,30 @@ public class Calculator{
 				stuff[i].equals("/")
 				){
 
-				double second = Double.parseDouble(stack.pull());
-				double first = Double.parseDouble(stack.pull());
+				double second = stack.pop();
+				double first = stack.pop();
 
 				switch(stuff[i]){
 					case "+" : 
-						first + second;
+						stack.push(first + second);
 						break;
 					case "-" : 
-						second - first;
+						stack.push(first - second);
 						break;
 					case "*" : 
-						stack.pull() * stack.pull();
+						stack.push(first * second);
 						break;
 					case "/" : 
-						1 / stack.pull() + stack.pull();
+						stack.push(first / second);
 						break;
-
-
-
 				}
 			}else{
-				stack.push(stuff[i]);
+				stack.push(Double.parseDouble(stuff[i]));
 			}
 
 		}
 
-		return num;
+		return stack.pop();
 	}
 
 
