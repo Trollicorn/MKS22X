@@ -1,6 +1,6 @@
 public class Sorts{
 
-	public static void radixsort(MyLinkedListImproved<Integer> data){
+/*	public static void radixsort(MyLinkedListImproved<Integer> data){
 
 		@SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] bucket = new MyLinkedListImproved[10];
 		for (int m = 0; m < 10; m++){
@@ -20,8 +20,17 @@ public class Sorts{
 		}
 
 	}
+*/
 
 	public static void radixsortIncludingNegatives(MyLinkedListImproved<Integer> data){
+		radixsort(data);
+	}
+
+	public static void radixsort(MyLinkedListImproved<Integer> data){
+
+		if (data.size() == 0){
+			return;
+		}
 
 		@SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] bucket = new MyLinkedListImproved[10];
 		MyLinkedListImproved<Integer> pos = new MyLinkedListImproved<>();
@@ -40,44 +49,50 @@ public class Sorts{
 		}
 		data.clear();
 
-		System.out.println(pos);
-		System.out.println(neg);
+	//	System.out.println(pos);
+	//	System.out.println(neg);
 
-		int max = pos.get(pos.max());
-		int digitP = (int)Math.log10(max) + 1;
-		for (int d = 0; d < digitP; d++){
-			for (Integer j : pos){
-				int num = (j / (int)Math.pow(10,d)) % 10;
-				bucket[num].add(j);
-			}
-			pos.clear();
-			for (int i = 0; i < 10; i++){
-				pos.extend(bucket[i]);
+
+		if (pos.size() != 0){
+			int max = pos.get(pos.max());
+			int digitP = (int)Math.log10(max) + 1;
+			for (int d = 0; d < digitP; d++){
+				for (Integer j : pos){
+					int num = (j / (int)Math.pow(10,d)) % 10;
+					bucket[num].add(j);
+				}
+				pos.clear();
+				for (int i = 0; i < 10; i++){
+					pos.extend(bucket[i]);
+				}
 			}
 		}
 
 	//	System.out.println(pos);
 	//	System.out.println(neg);
 
-		int min = neg.get(neg.min());
-		int digitN = (int)Math.log10(-1 * min) + 1;
-		for (int d = 0; d < digitN; d++){
-			for (Integer j : data){
-				int num = (-1 * j / (int) Math.pow(10,d)) % 10;
-				bucket[num].add(0,j);
+		if (neg.size() != 0){ 
+			int min = neg.get(neg.min());
+			int digitN = (int)Math.log10(-1 * min) + 1;
+			for (int d = 0; d < digitN; d++){
+				for (Integer j : neg){
+					int num = (-1 * j / (int) Math.pow(10,d)) % 10;
+					bucket[num].add(0,j);
+				}
+				neg.clear();
+
+				for (int i = 0; i < 10; i++){
+		//			System.out.println("bucket" + i);
+		//			System.out.println(bucket[i]);
+					neg.extend(bucket[9-i]);
+				}
+		//		System.out.println(d);
+		//		System.out.println(neg);
 			}
-			neg.clear();
-			for (int i = 0; i < 10; i++){
-		//		System.out.println("bucket" + i);
-		//		System.out.println(bucket[i]);
-				neg.extend(bucket[9-i]);
-			}
-			System.out.println(d);
-			System.out.println(neg);
 		}
 
-		System.out.println(pos);
-		System.out.println(neg);
+//		System.out.println(pos);
+//		System.out.println(neg);
 
 		data.extend(neg);
 		data.extend(pos);
@@ -86,8 +101,8 @@ public class Sorts{
 
 	public static void main(String[] args){
 		MyLinkedListImproved<Integer> L = new MyLinkedListImproved<>();
-		for (int i = 0; i < 6; i++){
-			L.add( (int)(Math.random() * 20) - 10);
+		for (int i = 0; i < 4; i++){
+			L.add( (int)(Math.random() * 200) - 200);
 		}
 		System.out.println(L);
 		radixsortIncludingNegatives(L);
