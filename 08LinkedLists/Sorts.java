@@ -77,7 +77,7 @@ public class Sorts{
 			for (int d = 0; d < digitN; d++){
 				for (Integer j : neg){
 					int num = (-1 * j / (int) Math.pow(10,d)) % 10;
-					bucket[num].add(0,j);
+					bucket[num].add(j);
 				}
 				neg.clear();
 
