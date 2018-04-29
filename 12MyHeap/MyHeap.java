@@ -1,17 +1,19 @@
-public class MyHeap{
+public class MyHeap<T extends Comparable<T>>{
 
-	private String[] data;
+	private T[] data;
 	private boolean isMax;
 	private int length;
 
+	@SuppressWarnings("unchecked")
 	public MyHeap(){
-		data = new String[10];
+		data = (T[]) new Comparable[10];
 		isMax = true;
 		length = 0;
 	} 
 
+	@SuppressWarnings("unchecked")
 	public MyHeap(boolean max){
-		data = new String[10];
+		data = (T[]) new Comparable[10];
 		isMax = max;
 		length = 0;
 	}
@@ -20,18 +22,18 @@ public class MyHeap{
 		return length;
 	}
 
-	public String peek(){
+	public T peek(){
 		return data[0];
 	}
 
-	public void add(String s){
+	public void add(T s){
 		data[size()] = s;
 		pushUp(size());
 		length++;
 	}
 
-	public String remove(){
-		String str = data[0];
+	public T remove(){
+		T str = data[0];
 		swap(0, size());
 		pushDown(0);
 		length--;
@@ -74,10 +76,13 @@ public class MyHeap{
 	}
 
 	private void swap(int i, int j){
-		String temp = data[i];
+		T temp = data[i];
 		data[i] = data[j];
 		data[j] = temp;
 	}
 
+	public static void main(String[] args) {
+		MyHeap L = new MyHeap();
+	}
 
 }
