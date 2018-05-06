@@ -1,31 +1,31 @@
 public class RunningMedians{
 	
 	private MyHeap<Integer> maxHeap, minHeap;
-	private int med;
+	private Double median;
 
 	public RunningMedians(){
-		maxHeap = new MyHeap<Integer>();
-		minHeap = new MyHeap<Integer>(false);
+		maxHeap = new MyHeap<Double>();
+		minHeap = new MyHeap<Double>(false);
 	}
 
-	public void add(int value){
+	public void add(Double value){
 		if (maxHeap.size() == 0 && minHeap.size() == 0){
 			maxHeap.add(value);
-			med = value;
+			median = value;
 		}else{
-			if (value <= med){
+			if (value <= median){
 				maxHeap.add(value);
 			}else{
 				minHeap.add(value);
 			}
 		}
 		if (minHeap.size() == maxHeap.size()){
-			med = (minHeap.peek() + maxHeap.peek()) / 2;
+			median = (minHeap.peek() + maxHeap.peek()) / 2;
 		}else if ( Math.abs( minHeap.size() - maxHeap.size() ) == 1){
 			if (minHeap.size() > maxHeap.size()){
-				med = minHeap.peek();
+				median = minHeap.peek();
 			}else{
-				med = maxHeap.peek();
+				median = maxHeap.peek();
 			}
 		}else{
 			if (minHeap.size() > maxHeap.size()){
@@ -33,8 +33,16 @@ public class RunningMedians{
 			}else{
 				minHeap.add(maxHeap.remove());
 			}
-			med = (minHeap.peek() + maxHeap.peek()) / 2;
+			median = (minHeap.peek() + maxHeap.peek()) / 2;
 		}
+	}
+
+	public Double getMedian(){
+		return median;
+	}
+
+	public int size(){
+		return minHeap.size() + maxHeap.size() + 1;
 	}
 
 
