@@ -81,6 +81,11 @@ public class MyHeap<T extends Comparable<T>>{
 		data[j] = temp;
 	}
 
+	public static void heapsort(){
+		
+	}
+
+
 	public static void main(String[] args) {
 		MyHeap<String> L = new MyHeap<>(false);
 		L.add("aaa");
