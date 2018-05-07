@@ -16,7 +16,42 @@
 	YOU MUST COMPLETE THIS METHOD!!!
 	*/
 	public Location[] getNeighbors(Location L){
-		return null;
+		int total = 0;
+		int x = L.getX();
+		int y = L.getY();
+		if (x - 1 != 0 && maze[x-1][y] == '.' && maze[x-1][y] != '#'){
+			total++;
+		}
+		if (x + 1 != maze[0].length && maze[x+1][y] == '.' && maze[x+1][y] != '#'){
+			total++;
+		}
+		if (y - 1 != 0 && maze[x][y-1] == '.' && maze[x][y-1] != '#'){
+			total++;
+		}
+		if (y + 1 != maze.length && maze[x][y+1] != '.' && maze[x][y+1] != '#'){
+			total++;
+		}
+		Location[] re = new Location[total];
+		int i = 0;
+		if (x - 1 != 0 && maze[x-1][y] == '.' && maze[x-1][y] != '#'){
+			re[i] = new Location(x-1,y);
+			i++;
+		}
+		if (x + 1 != maze[0].length && maze[x+1][y] == '.' && maze[x+1][y] != '#'){
+			re[i] = new Location(x+1,y);
+			i++;
+		}
+		if (y - 1 != 0 && maze[x][y-1] == '.' && maze[x][y-1] != '#'){
+			re[i] = new Location(x,y-1);
+			i++;
+		}
+		if (y + 1 != maze.length && maze[x][y+1] != '.' && maze[x][y+1] != '#'){
+			re[i] = new Location(x,y+1);
+			i++;
+		}
+
+
+
 	}
 
 	public Location getStart(){
