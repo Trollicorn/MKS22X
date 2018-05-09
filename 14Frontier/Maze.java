@@ -15,6 +15,13 @@
 	YOU MUST COMPLETE THIS METHOD!!!
 	YOU MUST COMPLETE THIS METHOD!!!
 	*/
+	// '#' - wall
+	// ' ' - open space
+	// '?' - frontier space
+	// '.' - visited space
+	// 'E' - end space (do not replace this)
+	// '@' - part of solution
+	// 'S' - starting space (do not replace this)
 	public Location[] getNeighbors(Location L){
 		int total = 0;
 		int x = L.getX();
@@ -34,22 +41,26 @@
 		Location[] re = new Location[total];
 		int i = 0;
 		if (x - 1 != 0 && maze[x-1][y] == '.' && maze[x-1][y] != '#'){
-			re[i] = new Location(x-1,y);
+			re[i] = new Location(x-1, y, L);
+			maze[x-1][y] = '?';
 			i++;
 		}
 		if (x + 1 != maze[0].length && maze[x+1][y] == '.' && maze[x+1][y] != '#'){
-			re[i] = new Location(x+1,y);
+			re[i] = new Location(x+1, y, L);
+			maze[x+1][y] = '?';
 			i++;
 		}
 		if (y - 1 != 0 && maze[x][y-1] == '.' && maze[x][y-1] != '#'){
-			re[i] = new Location(x,y-1);
+			re[i] = new Location(x, y-1, L);
+			maze[x][y-1] = '?';
 			i++;
 		}
 		if (y + 1 != maze.length && maze[x][y+1] != '.' && maze[x][y+1] != '#'){
-			re[i] = new Location(x,y+1);
+			re[i] = new Location(x, y+1, L);
+			maze[x][y+1] = '?';
 			i++;
 		}
-
+		maze[x][y] = '.';
 		return re;
 
 	}
