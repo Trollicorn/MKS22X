@@ -26,37 +26,42 @@
 		int total = 0;
 		int x = L.getX();
 		int y = L.getY();
-		if (x - 1 != 0 && maze[x-1][y] == '.' && maze[x-1][y] != '#'){
+		int dist;
+		if (x - 1 != 0 && maze[x-1][y] == ' '){//maze[x-1][y] == '.' && maze[x-1][y] != '#'){
 			total++;
 		}
-		if (x + 1 != maze[0].length && maze[x+1][y] == '.' && maze[x+1][y] != '#'){
+		if (x + 1 != maze[0].length-1 && maze[x+1][y] == ' '){// && maze[x+1][y] != '#'){
 			total++;
 		}
-		if (y - 1 != 0 && maze[x][y-1] == '.' && maze[x][y-1] != '#'){
+		if (y - 1 != 0 && maze[x][y-1] == ' '){//&& maze[x][y-1] != '#'){
 			total++;
 		}
-		if (y + 1 != maze.length && maze[x][y+1] != '.' && maze[x][y+1] != '#'){
+		if (y + 1 != maze.length-1 && maze[x][y+1] != ' '){ //&& maze[x][y+1] != '#'){
 			total++;
 		}
 		Location[] re = new Location[total];
 		int i = 0;
-		if (x - 1 != 0 && maze[x-1][y] == '.' && maze[x-1][y] != '#'){
-			re[i] = new Location(x-1, y, L);
+		if (x - 1 != 0 && maze[x-1][y] == ' '){// && maze[x-1][y] != '#'){
+			dist = Math.abs(end.getX() - (x-1)) + Math.abs(end.getY() - y);
+			re[i] = new Location(x-1, y, L, dist);
 			maze[x-1][y] = '?';
 			i++;
 		}
-		if (x + 1 != maze[0].length && maze[x+1][y] == '.' && maze[x+1][y] != '#'){
-			re[i] = new Location(x+1, y, L);
+		if (x + 1 != maze[0].length-1 && maze[x+1][y] == ' '){// && maze[x+1][y] != '#'){
+			dist = Math.abs(end.getX() - (x+1)) + Math.abs(end.getY() - y);
+			re[i] = new Location(x+1, y, L, dist);
 			maze[x+1][y] = '?';
 			i++;
 		}
-		if (y - 1 != 0 && maze[x][y-1] == '.' && maze[x][y-1] != '#'){
-			re[i] = new Location(x, y-1, L);
+		if (y - 1 != 0 && maze[x][y-1] == ' '){// && maze[x][y-1] != '#'){
+			dist = Math.abs(end.getX() - x) + Math.abs(end.getY() - (y-1));
+			re[i] = new Location(x, y-1, L, dist);
 			maze[x][y-1] = '?';
 			i++;
 		}
-		if (y + 1 != maze.length && maze[x][y+1] != '.' && maze[x][y+1] != '#'){
-			re[i] = new Location(x, y+1, L);
+		if (y + 1 != maze.length-1 && maze[x][y+1] != ' '){//&& maze[x][y+1] != '#'){
+			dist = Math.abs(end.getX() - x) + Math.abs(end.getY() - (y+1));
+			re[i] = new Location(x, y+1, L, dist);
 			maze[x][y+1] = '?';
 			i++;
 		}
@@ -136,8 +141,9 @@
 		The start/end Locations may need more information later when we add
 		other kinds of frontiers!
 		*/
-		end = new Location(endr,endc,null);
-		start = new Location(startr,startc,null);
+		int dist = Math.abs(endr - startr) + Math.abs(endc - startc);
+		end = new Location(endr,endc,null,0);
+		start = new Location(startr,startc,null,dist);
 	}
 
 	public String toStringColor(){

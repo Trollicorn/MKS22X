@@ -2,11 +2,13 @@ public class Location{
 
 	private int x,y;
 	private Location previous;
+	private int distance;
 
-	public Location(int x, int y, Location prev){
+	public Location(int x, int y, Location prev, int dist){
 		this.x = x;
 		this.y = y;
 		previous = prev;
+		distance = dist;
 	}
 
 	public int getX(){

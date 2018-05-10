@@ -2,6 +2,7 @@
 public class MazeSolver{
 	private Maze maze;
 	private Frontier frontier;
+	private boolean animate = true;
 
 	public MazeSolver(String mazeText){
 		maze = new Maze(mazeText);
@@ -31,6 +32,12 @@ public class MazeSolver{
 		frontier.add(maze.getStart());
 
 		while (frontier.hasNext()){
+			if (animate){
+				clearTerminal();
+				System.out.println(this);
+				wait(50);
+			}
+
 			Location temp = frontier.next();
 			if (temp == maze.getEnd()){
 				return true;
@@ -39,14 +46,35 @@ public class MazeSolver{
 			for (int i = 0; i < neighbors.length; i++){
 				frontier.add(neighbors[i]);
 			}
+
 		}
 
 
 		return false;
 	}
 
+    private void wait(int millis){
+        try {
+            Thread.sleep(millis);
+        }
+        catch (InterruptedException e) {
+
+        }
+    }
+
+    public void clearTerminal(){
+        //erase terminal, go to top left of screen.
+        System.out.println("\033[2J\033[1;1H");
+    }
+
+
 	public String toString(){
 		return maze.toString();
+	}
+
+	public static void main(String[] args){
+		MazeSolver yeet = new MazeSolver("data2.dat");
+		yeet.solve();
 	}
 
 }

@@ -15,6 +15,5 @@ public class FrontierStack implements Frontier{
 	public boolean hasNext(){
 		return L.size() != 0;
 	}
-	}
-
+	
 }
