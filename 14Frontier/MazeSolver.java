@@ -26,8 +26,10 @@ public class MazeSolver{
     	//when there are no more values in the frontier return false
 		if (mode == 0){
 			frontier = new FrontierQueue();
-		}else{
+		}else if (mode == 1){
 			frontier = new FrontierStack();
+		}else{
+			frontier = new FrontierPriorityQueue();
 		}
 		frontier.add(maze.getStart());
 
@@ -35,11 +37,11 @@ public class MazeSolver{
 			if (animate){
 				clearTerminal();
 				System.out.println(this);
-				wait(50);
+				wait(150);
 			}
 
 			Location temp = frontier.next();
-			if (temp == maze.getEnd()){
+			if (temp.getX() == maze.getEnd().getX() && temp.getY() == maze.getEnd().getY()){
 				return true;
 			}
 			Location[] neighbors = maze.getNeighbors(temp);
@@ -73,8 +75,8 @@ public class MazeSolver{
 	}
 
 	public static void main(String[] args){
-		MazeSolver yeet = new MazeSolver("data2.dat");
-		yeet.solve();
+		MazeSolver yeet = new MazeSolver("data3.dat");
+		yeet.solve(2);
 	}
 
 }
