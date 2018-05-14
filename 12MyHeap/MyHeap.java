@@ -95,6 +95,7 @@ public class MyHeap<T extends Comparable<T>>{
 		L.add("a");
 		L.add("aac");
 		L.add("d");
+		System.out.println(L.remove());
 		System.out.println(L.peek());
 	}
 
