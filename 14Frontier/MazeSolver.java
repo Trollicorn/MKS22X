@@ -35,13 +35,19 @@ public class MazeSolver{
 
 		while (frontier.hasNext()){
 			if (animate){
-				clearTerminal();
-				System.out.println(this);
-				wait(150);
+				System.out.println(maze.toStringColor());
 			}
 
 			Location temp = frontier.next();
 			if (temp.getX() == maze.getEnd().getX() && temp.getY() == maze.getEnd().getY()){
+				maze.set(temp.getX(), temp.getY(), 'E');
+				temp = temp.getPrev();
+				while (temp.getPrev() != null){
+					maze.set(temp.getX(), temp.getY(), '@');
+					temp = temp.getPrev();
+				}
+				maze.set(temp.getX(), temp.getY(), 'S');
+				System.out.println(maze.toStringColor());
 				return true;
 			}
 			Location[] neighbors = maze.getNeighbors(temp);
@@ -76,7 +82,7 @@ public class MazeSolver{
 
 	public static void main(String[] args){
 		MazeSolver yeet = new MazeSolver("data3.dat");
-		yeet.solve(2);
+		yeet.solve(0);
 	}
 
 }

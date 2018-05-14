@@ -30,13 +30,13 @@
 		if (x - 1 != 0 && maze[x-1][y] == ' ' || maze[x-1][y] == 'E'){//maze[x-1][y] == '.' && maze[x-1][y] != '#'){
 			total++;
 		}
-		if (x + 1 != maze[0].length-1 && maze[x+1][y] == ' ' || maze[x+1][y] == 'E'){// && maze[x+1][y] != '#'){
+		if (x + 1 != maze.length-1 && maze[x+1][y] == ' ' || maze[x+1][y] == 'E'){// && maze[x+1][y] != '#'){
 			total++;
 		}
 		if (y - 1 != 0 && maze[x][y-1] == ' ' || maze[x][y-1] == 'E'){//&& maze[x][y-1] != '#'){
 			total++;
 		}
-		if (y + 1 != maze.length-1 && maze[x][y+1] == ' ' || maze[x][y+1] == 'E'){ //&& maze[x][y+1] != '#'){
+		if (y + 1 != maze[0].length-1 && maze[x][y+1] == ' ' || maze[x][y+1] == 'E'){ //&& maze[x][y+1] != '#'){
 			total++;
 		}
 		Location[] re = new Location[total];
@@ -47,7 +47,7 @@
 			maze[x-1][y] = '?';
 			i++;
 		}
-		if (x + 1 != maze[0].length-1 && maze[x+1][y] == ' ' || maze[x+1][y] == 'E'){// && maze[x+1][y] != '#'){
+		if (x + 1 != maze.length-1 && maze[x+1][y] == ' ' || maze[x+1][y] == 'E'){// && maze[x+1][y] != '#'){
 			dist = Math.abs(end.getX() - (x+1)) + Math.abs(end.getY() - y);
 			re[i] = new Location(x+1, y, L, dist);
 			maze[x+1][y] = '?';
@@ -59,7 +59,7 @@
 			maze[x][y-1] = '?';
 			i++;
 		}
-		if (y + 1 != maze.length-1 && maze[x][y+1] == ' ' || maze[x][y+1] == 'E'){//&& maze[x][y+1] != '#'){
+		if (y + 1 != maze[0].length-1 && maze[x][y+1] == ' ' || maze[x][y+1] == 'E'){//&& maze[x][y+1] != '#'){
 			dist = Math.abs(end.getX() - x) + Math.abs(end.getY() - (y+1));
 			re[i] = new Location(x, y+1, L, dist);
 			maze[x][y+1] = '?';
