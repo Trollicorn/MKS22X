@@ -69,23 +69,35 @@ public class MyHeap<T extends Comparable<T>>{
 	private void pushDown(int n){
 		int cL = 2 * n + 1;
 		int cR = 2 * n + 2;
+		int c;
+
+		if (exists(cL)){
+			c = cL;
+		}else{
+			return;
+		}
 
 		if (isMax){
-
-			if (exists(cL) && data[cL].compareTo(data[n]) > 0){
-				swap(n, cL);
-				pushDown(cL);
-			}else if (exists(cR) && data[cR].compareTo(data[n]) > 0){
-				swap(n, cR);
-				pushDown(cR);
+			if (exists(cR) && data[cL].compareTo(data[cR]) < 0){
+				c = cR;
+			}
+			if (data[c].compareTo(data[n]) > 0){
+				swap(n, c);
+				pushDown(c);
+	//		}else if (exists(cR) && data[cR].compareTo(data[n]) > 0){
+	//			swap(n, cR);
+	//			pushDown(cR);
 			}
 		}else{ // is min
-			if (exists(cL) && data[cL].compareTo(data[n]) < 0){
-				swap(n, cL);
-				pushDown(cL);
-			}else if (exists(cR) && data[cR].compareTo(data[n]) < 0){
-				swap(n, cR);
-				pushDown(cR);
+			if (exists(cR) && data[cL].compareTo(data[cR]) > 0){
+				c = cR;
+			}
+			if (data[c].compareTo(data[n]) < 0){
+				swap(n, c);
+				pushDown(c);
+	//		}else if (exists(cR) && data[cR].compareTo(data[n]) < 0){
+	//			swap(n, cR);
+	//			pushDown(cR);
 			}
 		}
 
@@ -106,8 +118,8 @@ public class MyHeap<T extends Comparable<T>>{
 	}
 
 	public static void main(String[] args) {
-		MyHeap<Integer> L = new MyHeap<>(false);
-		L.add(23);
+		MyHeap<Integer> L = new MyHeap<>();
+		L.add(19);
 		L.add(42);
 		L.add(99);
 		L.add(32);
@@ -116,8 +128,12 @@ public class MyHeap<T extends Comparable<T>>{
 		L.add(7);
 		System.out.println(L);
 		System.out.println(L.remove());
+		System.out.println(L);
 	//	System.out.println(L.peek());
 		System.out.println(L.remove());
+		System.out.println(L);
+		System.out.println(L.remove());
+		System.out.println(L);
 		System.out.println(L.remove());
 		System.out.println(L);
 	}
