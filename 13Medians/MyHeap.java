@@ -18,6 +18,15 @@ public class MyHeap<T extends Comparable<T>>{
 		length = 0;
 	}
 
+	@SuppressWarnings("unchecked")
+	public void resize(){
+		T[] temp = (T[]) new Comparable[data.length * 2];
+		for (int i = 0; i < data.length; i++){
+			temp[i] = data[i];
+		}
+		data = temp;
+	}
+
 	public int size(){
 		return length;
 	}
@@ -27,6 +36,9 @@ public class MyHeap<T extends Comparable<T>>{
 	}
 
 	public void add(T s){
+		if (size() == data.length){
+			resize();
+		}
 		data[size()] = s;
 		pushUp(size());
 		length++;
@@ -34,7 +46,7 @@ public class MyHeap<T extends Comparable<T>>{
 
 	public T remove(){
 		T str = data[0];
-		swap(0, size());
+		swap(0, size() - 1);
 		pushDown(0);
 		length--;
 		return str;
@@ -56,23 +68,28 @@ public class MyHeap<T extends Comparable<T>>{
 		int cR = 2 * n + 2;
 
 		if (isMax){
-			if (data[cL].compareTo(data[n]) > 0){
+
+			if (exists(cL) && data[cL].compareTo(data[n]) > 0){
 				swap(cL, n);
 				pushDown(cL);
-			}else if (data[cR].compareTo(data[n]) > 0){
+			}else if (exists(cR) && data[cR].compareTo(data[n]) > 0){
 				swap(cR, n);
 				pushDown(cR);
 			}
 		}else{ // is min
-			if (data[cL].compareTo(data[n]) < 0){
+			if (exists(cL) && data[cL].compareTo(data[n]) < 0){
 				swap(cL, n);
 				pushDown(cL);
-			}else if (data[cR].compareTo(data[n]) < 0){
+			}else if (exists(cR) && data[cR].compareTo(data[n]) < 0){
 				swap(cR, n);
 				pushDown(cR);
 			}
 		}
 
+	}
+
+	private boolean exists(int i){
+		return i >= 0 && i < data.length && data[i] != null;
 	}
 
 	private void swap(int i, int j){
@@ -90,6 +107,7 @@ public class MyHeap<T extends Comparable<T>>{
 		L.add("a");
 		L.add("aac");
 		L.add("d");
+		System.out.println(L.remove());
 		System.out.println(L.peek());
 	}
 
