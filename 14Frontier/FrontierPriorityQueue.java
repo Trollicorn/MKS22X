@@ -1,6 +1,6 @@
 public class FrontierPriorityQueue implements Frontier{
 	//min heap of Locations
-	private MyHeap<Location> data = new MyHeap<>();
+	private MyHeap<Location> data = new MyHeap<>(false);
 
 	public Location next(){
 		return data.remove();

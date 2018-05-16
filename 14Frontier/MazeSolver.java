@@ -82,7 +82,7 @@ public class MazeSolver{
 
 	public static void main(String[] args){
 		MazeSolver yeet = new MazeSolver("data3.dat");
-		yeet.solve(0);
+		yeet.solve(2);
 	}
 
 }
