@@ -1,9 +1,9 @@
-public class RunningMedians{
+public class RunningMedian{
 	
 	private MyHeap<Integer> maxHeap, minHeap;
 	private Double median;
 
-	public RunningMedians(){
+	public RunningMedian(){
 		maxHeap = new MyHeap<Double>();
 		minHeap = new MyHeap<Double>(false);
 	}
