@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class MyHeap<T extends Comparable<T>>{
 
 	private T[] data;
@@ -47,6 +49,7 @@ public class MyHeap<T extends Comparable<T>>{
 	public T remove(){
 		T str = data[0];
 		swap(0, size() - 1);
+		data[size() - 1] = null;
 		pushDown(0);
 		length--;
 		return str;
@@ -70,18 +73,18 @@ public class MyHeap<T extends Comparable<T>>{
 		if (isMax){
 
 			if (exists(cL) && data[cL].compareTo(data[n]) > 0){
-				swap(cL, n);
+				swap(n, cL);
 				pushDown(cL);
 			}else if (exists(cR) && data[cR].compareTo(data[n]) > 0){
-				swap(cR, n);
+				swap(n, cR);
 				pushDown(cR);
 			}
 		}else{ // is min
 			if (exists(cL) && data[cL].compareTo(data[n]) < 0){
-				swap(cL, n);
+				swap(n, cL);
 				pushDown(cL);
 			}else if (exists(cR) && data[cR].compareTo(data[n]) < 0){
-				swap(cR, n);
+				swap(n, cR);
 				pushDown(cR);
 			}
 		}
@@ -98,17 +101,25 @@ public class MyHeap<T extends Comparable<T>>{
 		data[j] = temp;
 	}
 
+	public String toString(){
+		return Arrays.toString(data);
+	}
+
 	public static void main(String[] args) {
-		MyHeap<String> L = new MyHeap<>(false);
-		L.add("aaa");
-		L.add("bbb");
-		L.add("ccc");
-		L.add("beb");
-		L.add("a");
-		L.add("aac");
-		L.add("d");
+		MyHeap<Integer> L = new MyHeap<>(false);
+		L.add(23);
+		L.add(42);
+		L.add(99);
+		L.add(32);
+		L.add(1);
+		L.add(22);
+		L.add(7);
+		System.out.println(L);
 		System.out.println(L.remove());
-		System.out.println(L.peek());
+	//	System.out.println(L.peek());
+		System.out.println(L.remove());
+		System.out.println(L.remove());
+		System.out.println(L);
 	}
 
 }
