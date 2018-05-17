@@ -2,10 +2,15 @@
 public class MazeSolver{
 	private Maze maze;
 	private Frontier frontier;
-	private boolean animate = true;
+	private boolean animate = false;
 
 	public MazeSolver(String mazeText){
 		maze = new Maze(mazeText);
+	}
+
+	public MazeSolver(String mazeText, boolean animateToggle){
+		maze = new Maze(mazeText);
+		animate = animateToggle;
 	}
 
 	//Default to BFS
@@ -33,6 +38,10 @@ public class MazeSolver{
 		}
 		frontier.add(maze.getStart());
 
+		if (mode == 3){
+			maze.setAStar(true);
+		}
+
 		while (frontier.hasNext()){
 			if (animate){
 				System.out.println(maze.toStringColor());
@@ -47,7 +56,9 @@ public class MazeSolver{
 					temp = temp.getPrev();
 				}
 				maze.set(temp.getX(), temp.getY(), 'S');
-				System.out.println(maze.toStringColor());
+				if (animate){
+					System.out.println(maze.toStringColor());
+				}
 				return true;
 			}
 			Location[] neighbors = maze.getNeighbors(temp);
@@ -81,8 +92,8 @@ public class MazeSolver{
 	}
 
 	public static void main(String[] args){
-		MazeSolver yeet = new MazeSolver("data3.dat");
-		yeet.solve(2);
+		MazeSolver yeet = new MazeSolver("data4.dat", true);
+		yeet.solve(3);
 	}
 
 }

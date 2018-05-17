@@ -7,6 +7,7 @@
 		private static final String SHOW_CURSOR =  "\033[?25h";
 		Location start,end;
 		private char[][]maze;
+		private boolean AStar = false;
 
 
 
@@ -42,25 +43,45 @@
 		Location[] re = new Location[total];
 		int i = 0;
 		if (x - 1 != 0 && maze[x-1][y] == ' ' || maze[x-1][y] == 'E'){// && maze[x-1][y] != '#'){
-			dist = Math.abs(end.getX() - (x-1)) + Math.abs(end.getY() - y);
+			if (AStar){
+				dist = Math.abs(end.getX() - (x-1)) + Math.abs(end.getY() - y) 
+				+ Math.abs(start.getX() - (x-1)) + Math.abs(start.getY() - y);
+			}else{
+				dist = Math.abs(end.getX() - (x-1)) + Math.abs(end.getY() - y);
+			}
 			re[i] = new Location(x-1, y, L, dist);
 			maze[x-1][y] = '?';
 			i++;
 		}
 		if (x + 1 != maze.length-1 && maze[x+1][y] == ' ' || maze[x+1][y] == 'E'){// && maze[x+1][y] != '#'){
-			dist = Math.abs(end.getX() - (x+1)) + Math.abs(end.getY() - y);
+			if (AStar){
+				dist = Math.abs(end.getX() - (x+1)) + Math.abs(end.getY() - y) 
+				+ Math.abs(start.getX() - (x+1)) + Math.abs(start.getY() - y);
+			}else{
+				dist = Math.abs(end.getX() - (x+1)) + Math.abs(end.getY() - y);
+			}
 			re[i] = new Location(x+1, y, L, dist);
 			maze[x+1][y] = '?';
 			i++;
 		}
 		if (y - 1 != 0 && maze[x][y-1] == ' ' || maze[x][y-1] == 'E'){// && maze[x][y-1] != '#'){
-			dist = Math.abs(end.getX() - x) + Math.abs(end.getY() - (y-1));
+			if (AStar){
+				dist = Math.abs(end.getX() - x) + Math.abs(end.getY() - (y-1)) 
+				+ Math.abs(start.getX() - x) + Math.abs(start.getY() - (y-1));
+			}else{
+				dist = Math.abs(end.getX() - x) + Math.abs(end.getY() - (y-1));
+			}
 			re[i] = new Location(x, y-1, L, dist);
 			maze[x][y-1] = '?';
 			i++;
 		}
 		if (y + 1 != maze[0].length-1 && maze[x][y+1] == ' ' || maze[x][y+1] == 'E'){//&& maze[x][y+1] != '#'){
-			dist = Math.abs(end.getX() - x) + Math.abs(end.getY() - (y+1));
+			if (AStar){
+				dist = Math.abs(end.getX() - x) + Math.abs(end.getY() - (y+1)) 
+				+ Math.abs(start.getX() - x) + Math.abs(start.getY() - (y+1));
+			}else{
+				dist = Math.abs(end.getX() - x) + Math.abs(end.getY() - (y+1));
+			}
 			re[i] = new Location(x, y+1, L, dist);
 			maze[x][y+1] = '?';
 			i++;
@@ -68,6 +89,10 @@
 		maze[x][y] = '.';
 		return re;
 
+	}
+
+	public void setAStar(boolean toggle){
+		AStar = toggle;
 	}
 
 	public Location getStart(){
