@@ -99,7 +99,7 @@ public class USACO{
 				for (int r = 0; r < rows; r++){
 					for (int c = 0; c < cols; c++){
 						if (map[r][c] != '*'){
-							if (past[r][c] == 0){
+							if (present[r][c] == 0){
 								if (r - 1 > -1){
 									present[r][c] += past[r-1][c];
 								}
