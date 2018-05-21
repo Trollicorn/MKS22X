@@ -35,7 +35,9 @@ public class KnightBoard{
 		if (isBad()){
 			throw new IllegalStateException();
 		}
-		return solveHelp(row,col,1);
+		boolean ok = solveHelp(row,col,1);
+		board[row][col] = 0;
+		return ok;
 	}
 
 	private boolean solveHelp(int row, int col, int level){
@@ -57,7 +59,13 @@ public class KnightBoard{
 		return false;
 	}
 
-
+	private void reset(){
+		for (int r = 0; r < board.length; r++){
+			for (int c = 0; c < board[0].length; c++){
+				board[r][c] = 0;
+			}
+		}
+	}
 
 
 	public int countSolutions(int row, int col){
@@ -114,7 +122,15 @@ public class KnightBoard{
 			}
 		}
 		System.out.println(totalSol);
-		
+
+		KnightBoard d = new KnightBoard(5,5);
+		for (int i = 0; i < 5; i++){
+			for (int j = 0; j < 5; j++){
+				d.solve(i,j);
+				d.reset();
+			}
+		}
+				
 	}
 
 
