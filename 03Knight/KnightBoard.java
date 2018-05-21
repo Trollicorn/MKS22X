@@ -66,6 +66,7 @@ public class KnightBoard{
 		}
 		solutions = 0;
 		countHelp(row, col, 1);
+		board[row][col] = 0;
 		return solutions;
 	}
 
@@ -102,8 +103,18 @@ public class KnightBoard{
 		KnightBoard b = new KnightBoard(5, 5);
 		System.out.println(b);
 	//	System.out.println(b.solve(0,0));
-		System.out.println(b.countSolutions(0,0));
+		System.out.println(b.countSolutions(1,1));
 		System.out.println(b);
+
+		KnightBoard c = new KnightBoard(5,5);
+		int totalSol = 0; 
+		for (int i = 0; i < 5; i++){
+			for (int j = 0; j < 5; j++){
+				totalSol+= c.countSolutions(i,j);
+			}
+		}
+		System.out.println(totalSol);
+		
 	}
 
 
