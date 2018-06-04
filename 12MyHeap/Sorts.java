@@ -8,7 +8,7 @@ public class Sorts{
 		}
 	}
 
-	public static void heapsort(int[] data){
+	public static void heapSort(int[] data){
 		MyHeap<Integer> heap = new MyHeap<>();
 		for (int i = 0; i < data.length; i++){
 			heap.add(data[i]);
