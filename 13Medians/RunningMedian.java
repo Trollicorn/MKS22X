@@ -1,6 +1,6 @@
 public class RunningMedian{
 	
-	private MyHeap<Integer> maxHeap, minHeap;
+	private MyHeap<Double> maxHeap, minHeap;
 	private Double median;
 
 	public RunningMedian(){
@@ -45,5 +45,18 @@ public class RunningMedian{
 		return minHeap.size() + maxHeap.size() + 1;
 	}
 
+	public static void main(String[] args) {
+		RunningMedian b = new RunningMedian();
+		b.add(0.);
+		b.add(1.);
+		b.add(2.);
+		b.add(3.);
+		b.add(4.);
+		b.add(5.);
+		b.add(6.);
+		b.add(7.);
+		b.add(8.);
+		System.out.println(b.getMedian());
+	}
 
 }
